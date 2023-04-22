@@ -1,13 +1,28 @@
 # Lighthouse Buy/Sell
 
+## Reports
+ - we need to present 2 reports per week
+
 ## Assigned tasks:
+### tasks
+- deadline date Apr26 Wed 5:30(BC) 6:30(AB)
+
 ### Denny
+- create html pages (some of these html pahes might end up being appended through js, but have it in seperate html file for bata version)
 ### Daniel
+- setup rout handlers
+
 ### Mike
+- setup database(schema and seeds) and query functions
 
 ## Outline:
 
-### ERD
+### ERD (https://app.diagrams.net/#G1SkEcRpwz--zQMCW7ewoYqr6GPcyFfO6P)
+- users
+- listings
+- messages
+- favorites
+- immages
 
 ### Urls:
 - logged in never refresh
