@@ -11,8 +11,8 @@ VALUES
 ('I can lower the price a little bit, but not too much. How much are you willing to pay?', 3, 4, 5),
 ('Sure, let me take some more pictures and I will send them to you.', 4, 5, 6),
 ('Great, let me know when you are ready to purchase and we can arrange a meeting place.', 5, 6, 7),
-('Do you have any other items for sale?', NULL, 3, 2),
-('Yes, I have a few other things. What are you looking for?', NULL, 2, 3),
-('I am interested in buying a camera. Do you have one for sale?', NULL, 4, 3),
-('Yes, I have a DSLR camera that I am selling. Would you like to see some pictures?', NULL, 3, 4),
-('Yes, please send me some pictures and information about the camera.', NULL, 4, 3);
+('Do you have any other items for sale?', 9, 3, 2),
+('Yes, I have a few other things. What are you looking for?', 11, 2, 3),
+('I am interested in buying a camera. Do you have one for sale?', 12, 4, 3),
+('Yes, I have a DSLR camera that I am selling. Would you like to see some pictures?', 13, 3, 4),
+('Yes, please send me some pictures and information about the camera.', 14, 4, 3);
