@@ -28,15 +28,6 @@ CREATE TABLE listings (
   date_created TIMESTAMP DEFAULT Now()
 );
 
-CREATE TABLE messages (
-  id SERIAL PRIMARY KEY NOT NULL,
-  message TEXT NOT NULL,
-  listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
-  seller_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  client_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP DEFAULT Now()
-);
-
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -47,4 +38,13 @@ CREATE TABLE photos (
   id SERIAL PRIMARY KEY NOT NULL,
   listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
   url VARCHAR(600)
+);
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  message TEXT NOT NULL,
+  listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
+  seller_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  client_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT Now()
 );
