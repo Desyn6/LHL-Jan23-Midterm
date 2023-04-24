@@ -1,0 +1,59 @@
+<!-- ERIJROIE -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home Page</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+  <main class="listing_container">
+    <form action="/create" method="post" class="new-listing-form">
+      <div class="new-listing-wrapper">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Title">
+      </div>
+      
+      <div class="new-listing-wrapper">
+        <label for="description">Description</label>
+        <textarea placeholder="Description" name="description" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="new-listing-wrapper">
+        <label for="condition">Condition</label>
+        <input placeholder="Condition" type="text" name="condition">
+      </div>
+
+      <div class="new-listing-wrapper">
+        <label for="asking-price">Asking price</label>
+        <input placeholder="Asking price" type="number" name="asking-price">
+      </div>
+
+      <div class="new-listing-wrapper">
+        <label for="thumbnail">Thumbnail URL</label>
+        <input placeholder="Thumbnail URL" type="text" name="thumbnail-url">
+      </div>
+
+      <div class="new-listing-wrapper">
+        <label for="photos">Thumbnail URL</label>
+        <input placeholder="Photo URLs, comma-separated" type="text" name="photos">
+      </div>
+  </main>
+  <%- include('partials/_footer') %>
+</body>
+
+</html> 
