@@ -60,6 +60,10 @@ app.get('/create', (req, res) => {
   res.render('create')
 });
 
+app.get('/manage', (req, res) => {
+  res.render('manage')
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
