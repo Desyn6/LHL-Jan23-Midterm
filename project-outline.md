@@ -1,6 +1,7 @@
 # Lighthouse Buy/Sell
 
 ## Reports
+ - Final Presentation May6 
  - we need to present 2 reports per week
 
 ## Assigned tasks:
