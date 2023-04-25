@@ -7,10 +7,10 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const generalQueries = require('../db/queries/general');
 
 router.get('/', (req, res) => {
-  userQueries.getUsers()
+  generalQueries.getUsers()
     .then(users => {
       res.json({ users });
     })
