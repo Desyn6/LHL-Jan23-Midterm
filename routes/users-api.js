@@ -7,12 +7,12 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/general');
+const generalQueries = require('../db/queries/general');
 
-//This rout runs th function userQueries that is declared in db/queries/users.js
+//This rout runs th function generalQueries that is declared in db/queries/users.js
 router.get('/', (req, res) => {
 
-  userQueries.getUsers()
+  generalQueries.getUsers()
     .then(users => {
       res.json({ users });
     })

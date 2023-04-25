@@ -122,8 +122,8 @@ const addUser = function(newUser) {
   if (!newUser.Name || !newUser.email || !newUser.password || !newUser['phone-number'] || !newUser.city) {
     return null;
   }
-
-  const values = [newUser.Name, newUser.email, newUser.password, newUser['phone-number'], newUser.city];
+  let timeStamp = new Date
+  const values = [newUser.Name, newUser.email, newUser.password, newUser['phone-number'], newUser.city, timeStamp];
   //insert a new user into users entity and return an object with the new user's information
   const queryString = `
   INSERT INTO users (
@@ -131,14 +131,16 @@ const addUser = function(newUser) {
     email, 
     password,
     phone,
-    city
+    city,
+    created_at
     ) 
     VALUES (
     $1, 
     $2, 
     $3,
     $4,
-    $5
+    $5,
+    $6
     )
     RETURNING *;`;
   return db.query(queryString, values)

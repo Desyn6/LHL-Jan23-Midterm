@@ -22,7 +22,7 @@
 <body>
   <%- include('partials/_header') %>
   <main class="listing_container">
-
+    <form action="/users/login" method="post" class="registration-form">
       <div class="registration-wrapper">
         <label for="email">email</label>
         <input placeholder="user@example.com" name="email" type="email"></input>
@@ -32,6 +32,12 @@
         <label for="password">Password</label>
         <input placeholder="password" type="password" name="password">
       </div>
+
+      <div>
+        <!-- this button will submit the form data to the server-->
+        <button type="submit" >Submit</button>
+      </div>
+    </form>
   </main>
   <%- include('partials/_footer') %>
 </body>
