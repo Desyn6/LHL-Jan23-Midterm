@@ -1,11 +1,33 @@
 const db = require('../connection');
 
+//This function gets all info from users table
 const getUsers = () => {
   return db.query('SELECT * FROM users;')
     .then(data => {
       return data.rows;
     });
 };
+
+const getUserByEmail = function(email) {
+  //return null if no e-mail is passed in
+  if (!email) {
+    return null;
+  }
+
+  const values = [email];
+  //selecting all columns from users entity
+  const queryString = `
+  SELECT *
+  FROM users
+  WHERE email = $1;
+  `;
+  return db.query(queryString, values)
+    .then(res => {
+      (res.rows[0]);
+      return res.rows[0];
+    });
+};
+
 const getListingsById = (user_id) => {
   return db.query(`SELECT * FROM listings where id = ${user_id};`)
     .then(data => {
@@ -95,9 +117,41 @@ const getConversation = (listing_id, seller_id, client_id) => {
     });
 };
 
+const addUser = function(newUser) {
+  //if information is not provided return null
+  if (!newUser.Name || !newUser.email || !newUser.password || !newUser['phone-number'] || !newUser.city) {
+    return null;
+  }
+
+  const values = [newUser.Name, newUser.email, newUser.password, newUser['phone-number'], newUser.city];
+  //insert a new user into users entity and return an object with the new user's information
+  const queryString = `
+  INSERT INTO users (
+    name, 
+    email, 
+    password,
+    phone,
+    city
+    ) 
+    VALUES (
+    $1, 
+    $2, 
+    $3,
+    $4,
+    $5
+    )
+    RETURNING *;`;
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows[0];
+    });
+};
+
 module.exports = {
+  addUser,
   getUsers,
   getListingsById,
+  getUserByEmail,
   getAllListings,
   getListingsBySearch,
   getFavoritesById,

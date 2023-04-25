@@ -9,7 +9,9 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
+//This rout runs th function userQueries that is declared in db/queries/users.js
 router.get('/', (req, res) => {
+
   userQueries.getUsers()
     .then(users => {
       res.json({ users });

@@ -8,8 +8,16 @@ const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+const cookieSession = require('cookie-session');
 
 app.set('view engine', 'ejs');
+
+
+//this app.use allows express to use required packages
+app.use(cookieSession({
+  name: 'session',
+  keys: ['tea'],
+}));
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.

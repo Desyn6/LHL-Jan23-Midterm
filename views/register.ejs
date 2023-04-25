@@ -23,7 +23,7 @@
   <%- include('partials/_header') %>
   <main class="listing_container">
 
-    <form action="/register" method="post" class="registration-form">
+    <form action="/users/register" method="post" class="registration-form">
       <div class="registration-wrapper">
         <label for="Name">Name</label>
         <input type="text" name="Name" placeholder="Name">
@@ -46,12 +46,18 @@
 
       <div class="registration-wrapper">
         <label for="phone-number">Phone Number</label>
-        <input placeholder="(XXX)-XXX-XXXX" type="tel" name="phone-number"  pattern="[0-9]{3}=[0-9]{3}-[0-9]{4}">
+        <input placeholder="(XXX)-XXX-XXXX" type="tel" name="phone-number">
       </div>
 
       <div class="registration-wrapper">
         <label for="city">City</label>
         <input placeholder="City" type="text" name="city">
+      </div>
+
+      <div class="mb-3">
+        <!-- this button will submit the form data to the server it will be stored inside req.body.email and req.body.password-->
+        &#160&#160&#160
+        <button type="submit" >Submit</button>
       </div>
   </main>
   <%- include('partials/_footer') %>
