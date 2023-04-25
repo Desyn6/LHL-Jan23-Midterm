@@ -16,7 +16,7 @@ const getListingsById = (user_id) => {
 // multi use function, can return listings by listin_di, owner_id, min_price, max_price
 const getAllListings = (options, limit = 10) => {
   const queryParams = [];
-  const queryString = `
+  let queryString = `
   SELECT * FROM listings
   WHERE 1 = 1`;
   // return listings by listing_id
