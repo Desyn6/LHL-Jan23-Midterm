@@ -126,7 +126,7 @@ router.post("/create", (req, res) => {
             })
           })
 
-        return res.redirect('/api/users/search');
+        return res.redirect('/manage');
         })
         .catch((error) => {
           return res.send (error.message)

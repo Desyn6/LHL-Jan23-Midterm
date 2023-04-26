@@ -21,9 +21,13 @@ router.get('/', (req, res) => {
         .status(500)
         .json({ error: err.message });
     });
+
 });
 
-router.get('/search', (req, res) => {
-  res.send({message: 'waiting for front end'})
+
+router.post('/search', (req, res) => {
+  console.log("api rout", req.body)
+  res.send(req.body)
 })
+
 module.exports = router;
