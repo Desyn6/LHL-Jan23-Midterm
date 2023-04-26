@@ -74,7 +74,7 @@ app.get('/search', (req, res) => {
   res.render('search')
 })
 
-router.get('/mailbox', (req, res) => {
+app.get('/mailbox', (req, res) => {
   res.render('mailbox');
 });
 
