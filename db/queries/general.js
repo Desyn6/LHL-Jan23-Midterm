@@ -29,9 +29,13 @@ const getUserByEmail = function(email) {
 };
 
 const getListingsById = (user_id) => {
-  return db.query(`SELECT * FROM listings where id = ${user_id};`)
-    .then(data => {
-      return data.rows;
+  const values = [user_id]
+  const queryString = `
+  SELECT * FROM listings where id = $1;
+  `
+    return db.query(queryString, values)
+    .then(res => {
+      return res.rows[0];
     });
 };
 
@@ -149,8 +153,69 @@ const addUser = function(newUser) {
     });
 };
 
+const addListing = function(newListing) {
+  //if information is not provided return null
+  if (!newListing.title || !newListing.description || !newListing.condition || !newListing['asking-price'] || !newListing['thumbnail-url'] || !newListing.photos, !newListing.owner_id) {
+    return null;
+  }
+
+  let timeStamp = new Date
+  const values = [newListing.title, newListing.description, timeStamp, newListing.condition, newListing['thumbnail-url'], newListing.owner_id, newListing['asking-price']];
+  //insert a new listing into listings entity and return an object with the new information
+  const queryString = `
+  INSERT INTO listings (
+    title, 
+    long_description, 
+    date_created,
+    condition,
+    thumbnail_url,
+    owner_id,
+    asking_price
+    ) 
+    VALUES (
+    $1, 
+    $2, 
+    $3,
+    $4,
+    $5,
+    $6,
+    $7
+    )
+    RETURNING *;`;
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows[0];
+    });
+};
+
+const addPhotos = function(photos) {
+  //if information is not provided return null
+  if (!photos.listing_id || !photos.url) {
+    return null;
+  }
+
+  const values = [photos.listing_id, photos.url];
+  //insert a new photo into photos entity and return an object with the new information
+  const queryString = `
+  INSERT INTO photos (
+    listing_id,
+    url
+    ) 
+    VALUES (
+    $1, 
+    $2
+    )
+    RETURNING *;`;
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows[0];
+    });
+};
+
 module.exports = {
   addUser,
+  addListing,
+  addPhotos,
   getUsers,
   getListingsById,
   getUserByEmail,

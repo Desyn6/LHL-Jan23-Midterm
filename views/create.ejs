@@ -22,7 +22,7 @@
 <body>
   <%- include('partials/_header') %>
   <main class="listing_container">
-    <form action="/create" method="post" class="new-listing-form">
+    <form action="/users/create" method="post" class="new-listing-form">
       <div class="new-listing-wrapper">
         <label for="title">Title</label>
         <input type="text" name="title" placeholder="Title">
@@ -52,6 +52,9 @@
         <label for="photos">Thumbnail URL</label>
         <input placeholder="Photo URLs, comma-separated" type="text" name="photos">
       </div>
+
+      <button type="submit" >Submit</button>
+
   </main>
   <%- include('partials/_footer') %>
 </body>
