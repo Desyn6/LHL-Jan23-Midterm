@@ -17,35 +17,29 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
-  <script defer src="/scripts/users.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
-  <main class="search-container">
-    <form action="/api/users/search" method="post" id="search_form" class="new-listing-form">
+  <main class="mailbox-container">
 
-      <div class="search-wrapper">
-        <label for="title">Title</label>
-        <input id='title' type="text" name="title">
+    <form action="" method="post" class="response-box">
+      <div class="">
+        <label for="message">Message</label>
+        <input type="text" name="message" placeholder="Type your response here">
       </div>
       
-      <div class="search-wrapper">
-        <label for="date-posted">Date Posted</label>
-        <input id="date-posted" type="text" name="date-posted">
+      <div class="mailbox-wrapper">
+        <label for="email">email</label>
+        <input placeholder="user@example.com" name="email" type="email"></input>
       </div>
 
-      <div class="search-wrapper">
-        <label for="asking-price">Asking Price</label>
-        <input id="asking-price" type="text" name="asking-price">
-      </div>
 
-      <button id="search_button" type="submit" >Search</button>
+      <div>
+        <!-- this button will submit the form data to the server it will be stored inside req.body.message -->
+        <button type="send" >Submit</button>
+      </div>
     </form>
-
-    <div id="div">
-      
-    </div>
   </main>
   <%- include('partials/_footer') %>
 </body>

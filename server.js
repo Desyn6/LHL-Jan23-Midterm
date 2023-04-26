@@ -74,6 +74,10 @@ app.get('/search', (req, res) => {
   res.render('search')
 })
 
+router.get('/mailbox', (req, res) => {
+  res.render('mailbox');
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
