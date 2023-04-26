@@ -35,6 +35,8 @@ $(() => {
     })
       .then((response) => {
         console.log('jquery response', response)
+        $('#div').empty();
+        $('#div').append($(`<div>140</div>`));
       })
 
   });
