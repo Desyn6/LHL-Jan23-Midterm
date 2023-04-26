@@ -14,10 +14,6 @@ router.get('/', (req, res) => {
   res.render('users');
 }); 
 
-router.get('/search', (req, res) => {
-  res.render('search');
-});
-
 //the following rout creates a new user, adds the info to the database and saves encrypted user's email as a cookie
 router.post("/register", (req, res) => {
   let newUser = req.body;
