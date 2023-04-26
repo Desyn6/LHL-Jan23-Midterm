@@ -22,20 +22,20 @@
 
 <body>
   <%- include('partials/_header') %>
-  <main class="listing_container">
+  <main class="search-container">
     <form action="/api/users/search" method="post" id="search_form" class="new-listing-form">
 
-      <div class="new-listing-wrapper">
+      <div class="search-wrapper">
         <label for="title">Title</label>
         <input id='title' type="text" name="title">
       </div>
       
-      <div class="new-listing-wrapper">
+      <div class="search-wrapper">
         <label for="date-posted">Date Posted</label>
         <input id="date-posted" type="text" name="date-posted">
       </div>
 
-      <div class="new-listing-wrapper">
+      <div class="search-wrapper">
         <label for="asking-price">Asking Price</label>
         <input id="asking-price" type="text" name="asking-price">
       </div>
