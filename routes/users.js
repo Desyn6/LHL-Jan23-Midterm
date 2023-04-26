@@ -45,49 +45,49 @@ router.post("/register", (req, res) => {
         //if user does not exist add user to the db, add a cookie with user's encrypted email then redirect to home page
         generalQueries
           .addUser(newUser)
-          req.session['user_id'] = newUser.email
+          req.session.useInfo = newUser.email
           return res.redirect('/');
-          //}) 
         })
         .catch((error) => {
           return res.send (error.message)
       })
 });
 
-//the following rout creates a new user, adds the info to the database and saves encrypted user's email as a cookie
+//the following rout logs in an existing user, and saves encrypted user's email as a cookie
 router.post("/login", (req, res) => {
-  let newUser = req.body;
-  const hashedPassword = bcrypt.hashSync(newUser.password, 10);
+  let existingUser = req.body;
 
   //check for empty fields
-  if (!newUser.Name || !newUser.email || !newUser.password || !newUser['phone-number'] || !newUser.city || !newUser['confirm-password']) {
+  if (!existingUser.email || !existingUser.password) {
     return res.send ({error: 'empty field(s)'})
   }
-
-  //check if both password fields match, then hash user's password
-  if (newUser.password !== newUser['confirm-password']){
-    return res.send ({error: 'passwords not matching'})
-  }
-  newUser.password = hashedPassword
-
+  
     generalQueries
-      //tries to search for a user that is attempting to register
-      .getUserByEmail(newUser.email)
+      .getUserByEmail(existingUser.email)
       .then(checkUser => {
-        //check if user exists
-        if(checkUser){
-          return res.send ({error: 'user already registered'})
+        //check if user is registered
+        if(!checkUser) {
+          return res.send ({error: 'user not registered'})
         }
-        //if user does not exist add user to the db, add a cookie with user's encrypted email then redirect to home page
-        generalQueries
-          .addUser(newUser)
-          req.session['user_id'] = newUser.email
+
+        //check if both passwords match
+        if(!bcrypt.compareSync(existingUser.password, checkUser.password)){
+          return res.send ({error: 'incorrect password'})
+        }
+
+        //if user is registered and password matches save an encrypted cookie file and redirect user to home page
+          req.session.userInfo = existingUser.email
           return res.redirect('/');
-          //}) 
         })
         .catch((error) => {
           return res.send (error.message)
       })
 });
+
+//this rout deletes the saved cookie and redirects user to home page
+router.get("/logout", (req, res) => {
+  req.session = null;
+  return res.redirect('/')
+})
 
 module.exports = router;

@@ -23,4 +23,7 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/search', (req, res) => {
+  res.send({message: 'waiting for front end'})
+})
 module.exports = router;
