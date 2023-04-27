@@ -21,25 +21,66 @@
 
 <body>
   <%- include('partials/_header') %>
+
   <main class="mailbox-container">
 
-    <form action="" method="post" class="response-box">
-      <div class="">
-        <label for="message">Message</label>
-        <input type="text" name="message" placeholder="Type your response here">
-      </div>
-      
-      <div class="mailbox-wrapper">
-        <label for="email">email</label>
-        <input placeholder="user@example.com" name="email" type="email"></input>
-      </div>
+    <sidebar class="inbox-container">
+      <ul class="inbox">
+        <li>John Doe<br>Bananas</li>
+        <li>Betty Smith<br>Cherries</li>
+        <li>James Ping<br>Bananas</li>
+      </ul>
+    </sidebar>
 
+    <div class="messages-interface">
+      <form action="" method="post" class="response-box">
+        <div class="">
+          <label for="message">Message</label>
+          <input type="text" name="message" placeholder="Type your response here">
+        </div>
+        
+        <div class="mailbox-wrapper">
+          <label for="email">email</label>
+          <input placeholder="user@example.com" name="email" type="email"></input>
+        </div>
+        <div>
+          <!-- this button will submit the form data to the server it will be stored inside req.body.message -->
+          <button type="send" >Submit</button>
+        </div>
+      </form>
 
-      <div>
-        <!-- this button will submit the form data to the server it will be stored inside req.body.message -->
-        <button type="send" >Submit</button>
+      <div class="messages-container">Conversation with John Doe
+        <div class="buyer-name">John Doe</div>
+          <div class="message-container">
+            <article class="message-container">
+              <div class="sender-name">John Doe</div>
+              <p>
+                I can come pick up on Sunday.
+              </p>
+              <div class="sent-at">1 hour ago</div>
+              <!-- Should only dynamically create a respond button for most recent message and  -->
+              <button type="submit">Respond</button>
+            </article>
+
+            <article class="message-container">
+              <div class="sender-name">You</div>
+              <p>
+                I have three bunches available.
+              </p>
+              <div class="sent-at">3 hours ago</div>
+            </article>
+
+            <article class="message-container">
+              <div class="sender-name">John Doe</div>
+              <p>
+                Hello, I would like to buy some bananas please.
+              </p>
+              <div class="sent-at">6 hours ago</div>
+            </article>
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
   </main>
   <%- include('partials/_footer') %>
 </body>
