@@ -28,10 +28,21 @@ const getUserByEmail = function(email) {
     });
 };
 
-const getListingsById = (user_id) => {
-  const values = [user_id]
+const getListingsById = (id) => {
+  const values = [id]
   const queryString = `
   SELECT * FROM listings where id = $1;
+  `
+    return db.query(queryString, values)
+    .then(res => {
+      return res.rows[0];
+    });
+};
+
+const getListingsByUserId = (userId) => {
+  const values = [userId]
+  const queryString = `
+  SELECT * FROM listings where owner_id = $1;
   `
     return db.query(queryString, values)
     .then(res => {
@@ -235,6 +246,7 @@ module.exports = {
   addPhotos,
   getUsers,
   getListingsById,
+  getListingsByUserId,
   getUserByEmail,
   getAllListings,
   getListingsBySearch,

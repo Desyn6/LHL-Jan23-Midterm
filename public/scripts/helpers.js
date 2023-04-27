@@ -30,7 +30,7 @@ const createListingElement = function(listingObject) {
 const itemNotFound = function() {
   let postedListing = $(`
   <div class="listing-container">
-    Item Not Fount
+    Item(s) Not Fount
   </div>
     `
   );
@@ -40,16 +40,16 @@ const itemNotFound = function() {
 //this function takes in an array of objects(coming from the getListingsBySearch function)
 const renderListings = function(listingsObjectArr) {
   if(listingsObjectArr == 'item not found' || listingsObjectArr.length === 0){
-    $('.listing_container').empty();
-    $('.listing_container').append(itemNotFound);
+    $('.appending_listings_container').empty();
+    $('.appending_listings_container').append(itemNotFound);
     return
   }
   
-    $('.listing_container').empty();
+    $('.appending_listings_container').empty();
       
     //loop though array of objects containing listings info
     for (let i of listingsObjectArr) {
       let postListing = createListingElement(i)
-      $('.listing_container').prepend(postListing);
+      $('.appending_listings_container').prepend(postListing);
     }
 };
