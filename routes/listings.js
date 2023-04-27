@@ -5,8 +5,13 @@ const generalQueries = require('../db/queries/general');
 
 
 router.get('/', (req, res) => {
+  let email = req.session['userInfo']
+  //checking if user is loged
+  if(!email){
+    return res.redirect('/login')
+  } 
   res.render('manage')
-});
+})
 
 router.get('/search', (req, res) => {
   res.render('search')
@@ -16,13 +21,13 @@ router.get('/create', (req, res) => {
   res.render('create')
 });
 
-router.post("/create/listing", (req, res) => {
+router.post("/create", (req, res) => {
   let newListing = req.body;
   const userEmail = req.session.userInfo
 
   //check if user is logged in
   if(!generalQueries.getUserByEmail(userEmail)) {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
 
   //check for empty fields
