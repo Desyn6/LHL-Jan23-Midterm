@@ -1,7 +1,16 @@
 # Lighthouse Buy/Sell
 
 ## Meetings with instructor
-- 
+### Wednesday 
+- Create a trello board
+- Change routs
+- Work in separate branches
+
+### Friday 5:15
+
+### Tuesday 4:00
+
+### Thursday 5:15
 
 ## Reports
 - Final Presentation May6 
@@ -11,7 +20,9 @@
 ### tasks
 - deadline date Apr26 Wed 5:30(BC) 6:30(AB)
 
+
 ### Denny
+- trello
 - create html pages (some of these html pahes might end up being appended through js, but have it in seperate html file for bata version)
 ### Daniel
 - setup rout handlers

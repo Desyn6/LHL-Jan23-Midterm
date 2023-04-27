@@ -40,11 +40,14 @@ const itemNotFound = function() {
 //this function takes in an array of objects(coming from the getListingsBySearch function)
 const renderListings = function(listingsObjectArr) {
   if(listingsObjectArr == 'item not found'){
-    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&', listingsObjectArr)
     $('.listing_container').empty();
     $('.listing_container').append(itemNotFound);
     return
   }
+  
+  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&', listingsObjectArr)
+  
+
     $('.listing_container').empty();
       
     //loop though array of objects containing listings info

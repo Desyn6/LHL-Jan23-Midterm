@@ -54,26 +54,32 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+//login all logs in here
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login'); 
 });
 
+//register goes in a register file
 app.get('/register', (req, res) => {
   res.render('register');
 });
 
+//listings
 app.get('/create', (req, res) => {
   res.render('create')
 });
 
+//listings
 app.get('/manage', (req, res) => {
   res.render('manage')
 });
 
+//listing or listing-api
 app.get('/search', (req, res) => {
   res.render('search')
 })
 
+//message:id in it's own file(DOESN'T HAVE TO BE :)
 app.get('/mailbox', (req, res) => {
   res.render('mailbox');
 });

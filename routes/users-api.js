@@ -29,17 +29,14 @@ router.post('/search', (req, res) => {
   generalQueries
     .getListingsBySearch(req.body)
     .catch((error) => {
-      console.log('ERRRRROR############')
+      console.log('searched item not found', error.message)
     })
+
     .then((searchFilterObj) => {
       if(!searchFilterObj) {
         return res.send('item not found')
       }
         return res.json(searchFilterObj)
-    })
-
-    .catch((error) => {
-      return res.send (error.message)
     })
 })
 
