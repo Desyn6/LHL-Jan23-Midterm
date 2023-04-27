@@ -8,6 +8,9 @@
 //   background: #b2c8e7
 // }
 
-@import 'layout/header.scss';
+@import 'layout/navigation-bar.scss';
 @import 'layout/listings-container.scss';
 @import 'layout/listing-container.scss';
+@import 'layout/main.scss';
+
+@import 'themes/theme.scss';
