@@ -14,7 +14,7 @@ const createListingElement = function(listingObject) {
       <div class="title">${escape(listingObject.title)}</div>
       <div class="price">${escape(listingObject['asking_price'])}</div>
     </header>
-    <img src="${escape(listingObject['thumbnail-url'])}">
+    <img src="${escape(listingObject['thumbnail-url'])}" alt="">
     <footer>
       <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
       <div class="favorite">☆</div>
@@ -39,15 +39,12 @@ const itemNotFound = function() {
 
 //this function takes in an array of objects(coming from the getListingsBySearch function)
 const renderListings = function(listingsObjectArr) {
-  if(listingsObjectArr == 'item not found'){
+  if(listingsObjectArr == 'item not found' || listingsObjectArr.length === 0){
     $('.listing_container').empty();
     $('.listing_container').append(itemNotFound);
     return
   }
   
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&', listingsObjectArr)
-  
-
     $('.listing_container').empty();
       
     //loop though array of objects containing listings info
@@ -55,5 +52,4 @@ const renderListings = function(listingsObjectArr) {
       let postListing = createListingElement(i)
       $('.listing_container').prepend(postListing);
     }
-  
 };

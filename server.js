@@ -36,14 +36,24 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 const userApiRoutes = require('./routes/users-api');
+const searchApiRoutes = require('./routes/search-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const loginRouts = require('./routes/login');
+const registerRouts = require('./routes/register');
+const listingsRouts = require('./routes/listings');
+const mailboxRouts = require('./routes/mailbox');
 
 // Mount all resource routes
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
+app.use('/api/search', searchApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
+app.use('/login', loginRouts);
+app.use('/register', registerRouts);
+app.use('/listings', listingsRouts);
+app.use('/mailbox', mailboxRouts);
 
 // Note: mount other resources here, using the same pattern above
 // Home page
@@ -52,36 +62,6 @@ app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
-});
-
-//login all logs in here
-app.get('/login', (req, res) => {
-  res.render('login'); 
-});
-
-//register goes in a register file
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-//listings
-app.get('/create', (req, res) => {
-  res.render('create')
-});
-
-//listings
-app.get('/manage', (req, res) => {
-  res.render('manage')
-});
-
-//listing or listing-api
-app.get('/search', (req, res) => {
-  res.render('search')
-})
-
-//message:id in it's own file(DOESN'T HAVE TO BE :)
-app.get('/mailbox', (req, res) => {
-  res.render('mailbox');
 });
 
 app.listen(PORT, () => {

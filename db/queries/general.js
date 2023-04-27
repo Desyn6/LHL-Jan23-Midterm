@@ -91,26 +91,19 @@ const getListingsBySearch = (searchFilters) => {
   `;
 
   if (searchFilters) {
-    if (searchFilters.title) {
-      values.push(`%${searchFilters.title}%`);
-      queryString += `AND title LIKE $${values.length}`;
+    if (searchFilters.title && searchFilters.title !== '') {
+      values.push(`${searchFilters.title}`);
+      queryString += `AND title = $${values.length}`;
     }
 
-    if (searchFilters.datePosted) {
-      values.push(searchFilters.datePosted);
-      queryString += `AND date_created = $${values.length}`;
-    }
-
-    if (searchFilters.askingPrice) {
+    if (searchFilters.askingPrice && searchFilters.askingPrice !== '') {
       values.push(searchFilters.askingPrice);
       queryString += `AND asking_price = $${values.length}`;
     }
   }
   
-  queryString += `
-  ORDER BY id
-  `;
-
+  queryString += `;`;
+  
   return db
     .query(queryString, values)
     .then(res => {

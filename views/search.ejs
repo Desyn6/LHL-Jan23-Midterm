@@ -24,24 +24,19 @@
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/helpers.js"></script>
   <script defer src="/scripts/app.js"></script>
-  <script defer src="/scripts/users.js"></script>
+  <script defer src="/scripts/search-listings.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
   <main class="search-container">
-    <form action="/api/users/search" method="post" id="search_form" class="new-listing-form">
+    <form action="/api/search" method="post" id="search_form" class="new-listing-form">
 
       <div class="search-wrapper">
         <label for="title">Title</label>
         <input id='title' type="text" name="title">
       </div>
       
-      <div class="search-wrapper">
-        <label for="date-posted">Date Posted</label>
-        <input id="date-posted" type="text" name="date-posted">
-      </div>
-
       <div class="search-wrapper">
         <label for="asking-price">Asking Price</label>
         <input id="asking-price" type="text" name="asking-price">
