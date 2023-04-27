@@ -80,20 +80,44 @@ const getAllListings = (options, limit = 10) => {
 };
 
 // receives searchTerms from search bar and returns any matching listings
-const getListingsBySearch = (searchTerms) => {
-  const values = [`%${searchTerms}%`];
-  const queryString = `
-  SELECT * FROM listings
-  WHERE title ILIKE $1;
+const getListingsBySearch = (searchFilters) => {
+  
+    const values = [];
+  let queryString = `
+  SELECT listings.*, photos.url as "thumbnail-url"
+  FROM listings
+  JOIN photos ON listings.id = photos.listing_id
+  WHERE 1 = 1
   `;
-  return db.query(queryString, values)
-    .then(data => {
-      return data.rows;
-    })
-    .catch(err => {
-      console.log('Error', err);
+
+  if (searchFilters) {
+    if (searchFilters.title) {
+      values.push(`%${searchFilters.title}%`);
+      queryString += `AND title LIKE $${values.length}`;
+    }
+
+    if (searchFilters.datePosted) {
+      values.push(searchFilters.datePosted);
+      queryString += `AND date_created = $${values.length}`;
+    }
+
+    if (searchFilters.askingPrice) {
+      values.push(searchFilters.askingPrice);
+      queryString += `AND asking_price = $${values.length}`;
+    }
+  }
+  
+  queryString += `
+  ORDER BY id
+  `;
+
+  return db
+    .query(queryString, values)
+    .then(res => {
+      return res.rows;
     });
 };
+
 const getFavoritesById = (user_id) => {
   return db.query(`SELECT * FROM listings where id = ${user_id};`)
     .then(data => {

@@ -1,8 +1,11 @@
 # Lighthouse Buy/Sell
 
+## Meetings with instructor
+- 
+
 ## Reports
- - Final Presentation May6 
- - we need to present 2 reports per week
+- Final Presentation May6 
+- we need to present 2 reports per week
 
 ## Assigned tasks:
 ### tasks

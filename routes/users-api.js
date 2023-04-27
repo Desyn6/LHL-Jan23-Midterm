@@ -26,8 +26,21 @@ router.get('/', (req, res) => {
 
 
 router.post('/search', (req, res) => {
-  console.log("api rout", req.body)
-  res.send(req.body)
+  generalQueries
+    .getListingsBySearch(req.body)
+    .catch((error) => {
+      console.log('ERRRRROR############')
+    })
+    .then((searchFilterObj) => {
+      if(!searchFilterObj) {
+        return res.send('item not found')
+      }
+        return res.json(searchFilterObj)
+    })
+
+    .catch((error) => {
+      return res.send (error.message)
+    })
 })
 
 module.exports = router;
