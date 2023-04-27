@@ -1,26 +1,8 @@
-// See: https://sass-lang.com/
-
-body,
-html {
-  margin: 0;
-}
-
-header ul li{
-  height: 200px;
-  width: 100vw;
-
-  list-style-type: none;
-  display: inline;
-}
-
-.listing_container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 .listing-container {
-  background-color: white;
+  width: 350px;
+  height: 350px;
+
+  background-color: rgb(110, 53, 53);
   
   padding: 10px;
 
@@ -41,8 +23,9 @@ header ul li{
   }
 
   img {
-    max-height: 400px;
-    width: auto;
+    width: 275px;
+    height: 275px;
+    object-fit: contain;
   }
 
   footer {
