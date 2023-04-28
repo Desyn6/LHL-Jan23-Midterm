@@ -5,62 +5,65 @@ const generalQueries = require('../db/queries/general');
 
 
 router.get('/', (req, res) => {
-  let email = req.session['userInfo']
+  let email = req.session['userInfo'];
   //checking if user is loged
-  if(!email){
-    return res.redirect('/login')
-  } 
-  res.render('manage')
-})
+  if (!email) {
+    return res.redirect('/login');
+  }
+  const templateVars = { user: req.session.userInfo };
+  res.render('manage', templateVars);
+});
 
 router.get('/search', (req, res) => {
-  res.render('search')
-})
+  const templateVars = { user: req.session.userInfo };
+  res.render('search', templateVars);
+});
 
 router.get('/create', (req, res) => {
-  res.render('create')
+  const templateVars = { user: req.session.userInfo };
+  res.render('create', templateVars);
 });
 
 router.post("/create", (req, res) => {
   let newListing = req.body;
-  const userEmail = req.session.userInfo
+  const userEmail = req.session.userInfo;
 
   //check if user is logged in
-  if(!generalQueries.getUserByEmail(userEmail)) {
-    return res.redirect('/login')
+  if (!generalQueries.getUserByEmail(userEmail)) {
+    return res.redirect('/login');
   }
 
   //check for empty fields
   if (!newListing.title || !newListing.description || !newListing.condition || !newListing['asking-price'] || !newListing['thumbnail-url'] || !newListing.photos) {
-    return res.send ({error: 'empty field(s)'})
+    return res.send({error: 'empty field(s)'});
   }
 
   generalQueries
   //find id of logged user
-  .getUserByEmail(userEmail)
+    .getUserByEmail(userEmail)
     .then(userObject => {
-        //add user's id to newListing object
-        newListing.owner_id = userObject.id
+      //add user's id to newListing object
+      newListing.owner_id = userObject.id;
 
-        //create new listing
-        generalQueries.addListing(newListing)
+      //create new listing
+      generalQueries.addListing(newListing);
 
-        //find id of newly created listing
-        generalQueries
-          .getListingsById(userObject.id)
-          .then((newListingObject) => {
-            //use id of new listing to insert photos into photos table
-            generalQueries.addPhotos({
-              listing_id: newListingObject.id, 
-              url: newListing.photos
-            })
-          })
+      //find id of newly created listing
+      generalQueries
+        .getListingsById(userObject.id)
+        .then((newListingObject) => {
+          //use id of new listing to insert photos into photos table
+          generalQueries.addPhotos({
+            listing_id: newListingObject.id,
+            url: newListing.photos
+          });
+        });
 
-        return res.redirect('/listings');
-        })
-        .catch((error) => {
-          return res.send (error.message)
-      })
+      return res.redirect('/listings');
+    })
+    .catch((error) => {
+      return res.send(error.message);
+    });
 });
 
 module.exports = router;
