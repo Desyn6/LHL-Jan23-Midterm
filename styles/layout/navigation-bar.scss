@@ -1,15 +1,45 @@
-header nav {
+.container {
   position: fixed;
   top: 0px;
   width: 100%;
-  
-  z-index: 1; /* Navbar always on top */
 
   display: flex;
   justify-content: space-between;
+
   align-items: center;
   text-align: center;
 
+  background-color: rgb(97, 108, 112);
   height: 100px;
   width: 100vw;
 }
+.nav-left {
+  text-align: center;
+  padding-left: 2rem;
+  a:first-child {
+    padding-right: 1em;
+  }
+}
+.nav-right {
+  text-align: center;
+  padding-right: 2rem;
+  a {
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+  }
+  a:last-child {
+    background-color: orange;
+    color: black;
+  }
+   a:hover {
+    border-top: 5px solid red;
+    background-color: black;
+    color: orange;
+  }
+
+}
+a {
+    text-decoration: none;
+    color: orange;
+    height: 100%;
+  }
