@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 //the following rout creates a new user, adds the info to the database and saves encrypted user's email as a cookie
-router.post("/user", (req, res) => {
+router.post("/", (req, res) => {
   let newUser = req.body;
   const hashedPassword = bcrypt.hashSync(newUser.password, 10);
 
@@ -35,7 +35,7 @@ router.post("/user", (req, res) => {
         //if user does not exist add user to the db, add a cookie with user's encrypted email then redirect to home page
         generalQueries
           .addUser(newUser)
-          req.session.useInfo = newUser.email
+          req.session.userInfo = newUser.email
           return res.redirect('/');
         })
         .catch((error) => {

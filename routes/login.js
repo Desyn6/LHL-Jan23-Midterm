@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 //the following rout logs in an existing user, and saves encrypted user's email as a cookie
-router.post("/user", (req, res) => {
+router.post("/", (req, res) => {
   let existingUser = req.body;
 
   //check for empty fields

@@ -23,6 +23,7 @@ CREATE TABLE listings (
   thumbnail_url VARCHAR(255),
   owner_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   asking_price INT,
+  featured BOOLEAN DEFAULT FALSE,
   sold BOOLEAN DEFAULT FALSE,
   deleted BOOLEAN DEFAULT FALSE,
   date_created TIMESTAMP DEFAULT Now()
