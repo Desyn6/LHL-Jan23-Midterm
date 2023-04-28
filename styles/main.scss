@@ -7,13 +7,13 @@
 
 //   background: #b2c8e7
 // }
-
-@import 'components/messages.scss';
+@import 'styles/abstracts/variables.scss';
 
 @import 'layout/navigation-bar.scss';
 @import 'layout/listings-container.scss';
 @import 'layout/listing-container.scss';
 @import 'layout/main.scss';
-@import 'layout/mailbox.scss';
+
+@import 'pages/mailbox.scss';
 
 @import 'themes/theme.scss';
