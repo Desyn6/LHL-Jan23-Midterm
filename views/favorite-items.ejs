@@ -14,26 +14,26 @@
   <link rel="stylesheet" href="/styles/layout.css" />
 
   <script 
-  src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" 
-  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" 
-  crossorigin="anonymous" 
-  referrerpolicy="no-referrer">
-</script>
-<script src="/vendor/jquery-3.0.0.js"></script>
-<script defer src="/scripts/helpers.js"></script>
-<script defer src="/scripts/append-listings.js"></script>
-
+    src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" 
+    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer">
+  </script>
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/helpers.js"></script>
+  <script defer src="/scripts/append-listings.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
   <main class="listing_container">
 
-    <section id="manage_listings_container" class="appending_listings_container">
+    <section id="favorite_items_listings_container" class="appending_listings_container">
       <!-- This space(in the browser) will be populated with a box containing a posted tweet and other information related to the tweet. the code that will implement this is in the /scripts/client.js file-->
-    </section>
-
+    </section>    
+    
   </main>
+  <%- include('partials/_footer') %>
 </body>
 
 </html>

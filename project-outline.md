@@ -8,6 +8,7 @@
 
 ### Friday 5:15
 
+
 ### Tuesday 4:00
 
 ### Thursday 5:15
@@ -37,7 +38,7 @@
 - listings
 - messages
 - favorites
-- immages
+- images
 
 ### Users:
 - navbar header 

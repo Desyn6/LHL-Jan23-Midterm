@@ -6,6 +6,129 @@ const escape = function(str) {
   return div.innerHTML;
 };
 
+const buttonListeners = function(selector, listingObject) {
+  const favoriteSelector = `#favorite${listingObject.id}`
+  const soldSelector = `#sold${listingObject.id}`
+  const deleteSelector = `#delete${listingObject.id}`
+  const mailBoxSelector = `#mailbox${listingObject.id}`
+  
+  if($(`#favorite${listingObject.id}`)) {
+    $.ajax({
+      method: 'post',
+      url: '/api/listing/buttons/like/check',
+      data: {listingId: `${listingObject.id}`}
+    })
+    .then((res) => {
+      if(res === 'no logged user'){
+        $(favoriteSelector).empty();
+        $(mailBoxSelector).empty();
+      }
+      for(let i of res){
+        if(i['listing_id'] === listingObject.id){
+          $(favoriteSelector).empty();
+          $(favoriteSelector).append('💗');
+        }
+      }
+    })
+  }
+
+  $(favoriteSelector, selector).click((event) => {
+    const element = $(favoriteSelector, selector)[0].innerHTML
+    event.preventDefault()
+    
+    if(element === `🤍`){
+      $(favoriteSelector).empty();
+      $(favoriteSelector).append('💗');
+      
+      $.ajax({
+        method: 'post',
+        url: '/api/listing/buttons/like/add',
+        data: {listingId: `${listingObject.id}`}
+      })
+      .then(() => {
+      })
+    }
+    
+    if(element === `💗`){
+      $(favoriteSelector).empty();
+      $(favoriteSelector).append('🤍');
+      
+      $.ajax({
+        method: 'post',
+        url: '/api/listing/buttons/like/remove',
+        data: {listingId: `${listingObject.id}`}
+      })
+      .then(() => {
+      })
+    }
+  })
+
+  if($(`#sold${listingObject.id}`)) {
+    $.ajax({
+      method: 'post',
+      url: '/api/listing/buttons/like/check',
+      data: {listingId: `${listingObject.id}`}
+    })
+    .then((res) => {
+      if(res === 'no logged user'){
+        $(soldSelector).empty();
+      }
+
+      for(let i of res){
+        if(listingObject.sold){
+          $(soldSelector).empty();
+          $(soldSelector).append('Item Sold ✅');
+        }
+      }
+    })
+  }
+  
+  $(soldSelector, selector).click((event) => {
+    const element = $(soldSelector, selector)[0].innerHTML
+    event.preventDefault()
+
+    if(element === `🤝`){
+      $(soldSelector).empty();
+      $(soldSelector).append('Item Sold ✅');
+
+      $.ajax({
+        method: 'post',
+        url: '/api/listing/buttons/sold',
+        data: {listingId: `${listingObject.id}`}
+      })
+      .then(() => {
+      })
+    }
+
+    if(element === `Item Sold ✅`){
+      $(soldSelector).empty();
+      $(soldSelector).append('🤝');
+
+      $.ajax({
+        method: 'post',
+        url: '/api/listing/buttons/not/sold',
+        data: {listingId: `${listingObject.id}`}
+      })
+      .then(() => {
+      })
+    }
+  })
+  
+  $(deleteSelector, selector).click((event) => {
+    event.preventDefault();
+    
+    $.ajax({
+      method: 'post',
+      url: '/api/listing/buttons/delete',
+      data: {listingId: `${listingObject.id}`}
+    })
+    .then((t) => {
+      console.log(t)
+    })
+    location.reload();
+  })
+}
+
 //This function creates an HTML element with the an item from listings.
 const createListingElement = function(listingObject) {
   let postedListing = $(`
@@ -14,15 +137,18 @@ const createListingElement = function(listingObject) {
       <div class="title">${escape(listingObject.title)}</div>
       <div class="price">${escape(listingObject['asking_price'])}</div>
     </header>
-    <img src="${escape(listingObject['thumbnail-url'])}" alt="">
+    <img src="${escape(listingObject.thumbnail_url)}" alt="">
     <footer>
-      <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-      <div class="favorite">☆</div>
-      <div class="contact">✉</div>
+    <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+    <div class="sold" id="sold${listingObject.id}"></div>
+      <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
+      <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox">✉</a>
+
     </footer>
   </div>
     `
   );
+  buttonListeners(postedListing, listingObject)
   return postedListing;
 };
 
@@ -37,19 +163,57 @@ const itemNotFound = function() {
   return postedListing;
 };
 
-//this function takes in an array of objects(coming from the getListingsBySearch function)
-const renderListings = function(listingsObjectArr) {
+//this function takes in an array of objects(coming from the getListingsBySearch function and appends listings into home and search pages)
+const renderListings = function(listingsObjectArr, idSelector) {
   if(listingsObjectArr == 'item not found' || listingsObjectArr.length === 0){
-    $('.appending_listings_container').empty();
-    $('.appending_listings_container').append(itemNotFound);
+    $(idSelector).empty();
+    $(idSelector).append(itemNotFound);
     return
   }
   
-    $('.appending_listings_container').empty();
-      
+    $(idSelector).empty();
+    
     //loop though array of objects containing listings info
     for (let i of listingsObjectArr) {
       let postListing = createListingElement(i)
-      $('.appending_listings_container').prepend(postListing);
+      $(idSelector).prepend(postListing);
+    }
+};
+
+//This function creates an HTML element with the an item from listings with management privilege.
+const createManageListingElement = function(listingObject) {
+  let postedListing = $(`
+  <div class="listing-container">
+    <header>
+      <div class="title">${escape(listingObject.title)}</div>
+      <div class="price">${escape(listingObject['asking_price'])}</div>
+    </header>
+    <img src="${escape(listingObject.thumbnail_url)}" alt="">
+    <footer>
+      <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+      <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
+      <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
+      <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
+    </footer>
+  </div>
+    `
+  );
+  buttonListeners(postedListing, listingObject)
+  return postedListing;
+};
+
+//this function takes in an array of objects(coming from the getListingsBySearch function and appends listings into home and search pages)
+const renderManageListings = function(listingsObjectArr, idSelector) {
+  if(listingsObjectArr == 'item not found' || listingsObjectArr.length === 0){
+    $(idSelector).empty();
+    $(idSelector).append(itemNotFound);
+    return
+  }
+    $(idSelector).empty();
+      
+    //loop though array of objects containing listings info
+    for (let i of listingsObjectArr) {
+      let postListing = createManageListingElement(i)
+      $(idSelector).prepend(postListing);
     }
 };
