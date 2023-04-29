@@ -11,7 +11,7 @@ const buttonListeners = function(selector, listingObject) {
   const soldSelector = `#sold${listingObject.id}`
   const deleteSelector = `#delete${listingObject.id}`
   const mailBoxSelector = `#mailbox${listingObject.id}`
-  
+
   if($(`#favorite${listingObject.id}`)) {
     $.ajax({
       method: 'post',
@@ -35,11 +35,11 @@ const buttonListeners = function(selector, listingObject) {
   $(favoriteSelector, selector).click((event) => {
     const element = $(favoriteSelector, selector)[0].innerHTML
     event.preventDefault()
-    
+
     if(element === `🤍`){
       $(favoriteSelector).empty();
       $(favoriteSelector).append('💗');
-      
+
       $.ajax({
         method: 'post',
         url: '/api/listing/buttons/like/add',
@@ -48,11 +48,11 @@ const buttonListeners = function(selector, listingObject) {
       .then(() => {
       })
     }
-    
+
     if(element === `💗`){
       $(favoriteSelector).empty();
       $(favoriteSelector).append('🤍');
-      
+
       $.ajax({
         method: 'post',
         url: '/api/listing/buttons/like/remove',
@@ -82,7 +82,7 @@ const buttonListeners = function(selector, listingObject) {
       }
     })
   }
-  
+
   $(soldSelector, selector).click((event) => {
     const element = $(soldSelector, selector)[0].innerHTML
     event.preventDefault()
@@ -113,10 +113,10 @@ const buttonListeners = function(selector, listingObject) {
       })
     }
   })
-  
+
   $(deleteSelector, selector).click((event) => {
     event.preventDefault();
-    
+
     $.ajax({
       method: 'post',
       url: '/api/listing/buttons/delete',
@@ -142,8 +142,7 @@ const createListingElement = function(listingObject) {
     <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
     <div class="sold" id="sold${listingObject.id}"></div>
       <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
-      <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox">✉</a>
-
+      <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}">✉</a>
     </footer>
   </div>
     `
@@ -170,9 +169,9 @@ const renderListings = function(listingsObjectArr, idSelector) {
     $(idSelector).append(itemNotFound);
     return
   }
-  
+
     $(idSelector).empty();
-    
+
     //loop though array of objects containing listings info
     for (let i of listingsObjectArr) {
       let postListing = createListingElement(i)
@@ -185,7 +184,7 @@ const createManageListingElement = function(listingObject) {
   let postedListing = $(`
   <div class="listing-container">
     <header>
-      <div class="title">${escape(listingObject.title)}</div>
+      <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
       <div class="price">${escape(listingObject['asking_price'])}</div>
     </header>
     <img src="${escape(listingObject.thumbnail_url)}" alt="">
@@ -210,7 +209,7 @@ const renderManageListings = function(listingsObjectArr, idSelector) {
     return
   }
     $(idSelector).empty();
-      
+
     //loop though array of objects containing listings info
     for (let i of listingsObjectArr) {
       let postListing = createManageListingElement(i)
