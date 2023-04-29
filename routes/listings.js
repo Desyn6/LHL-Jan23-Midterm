@@ -29,7 +29,7 @@ router.get('/create', (req, res) => {
   //checking if user is loged
   if(!email){
     return res.redirect('/login')
-  } 
+  }
   res.render('create')
 });
 
@@ -80,11 +80,13 @@ module.exports = router;
 
 //this rout renders the page featuring user's favorite items
 router.get('/favorites', (req, res) => {
+  const templateVars = { user: req.session.userInfo };
+  res.render('favorites', templateVars);
   let email = req.session['userInfo']
   //checking if user is loged
   if(!email){
     return res.redirect('/login')
-  } 
+  }
   res.render('favorite-items')
 })
 
