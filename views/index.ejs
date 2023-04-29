@@ -13,7 +13,15 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" 
+    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer">
+  </script>
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/helpers.js"></script>
+  <script defer src="/scripts/append-listings.js"></script>
   <script defer src="/scripts/app.js"></script>
 
      <!-- Font-awesome icons -->
@@ -24,162 +32,11 @@
   <%- include('partials/_header') %>
   <main class="listing_container">
 
-    <!-- dummy listings -->
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Bananas</div>
-        <div class="price">$5</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-260nw-1722111529.jpg">
-      <footer>
-        <div class="posted_at">10 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
-
-    <div class="listing-container">
-      <header>
-        <div class="title">Cherries</div>
-        <div class="price">$10</div>
-      </header>
-      <img src="https://www.shutterstock.com/image-photo/cherry-isolated-on-white-cherries-260nw-1392023051.jpg">
-      <footer>
-        <div class="posted_at">20 mins ago</div>
-        <i class="fa-regular fa-star"></i>
-        <i class="fa-regular fa-envelope"></i>
-      </footer>
-    </div>
+    <section id="index_listings_container" class="appending_listings_container">
+      <!-- This space(in the browser) will be populated with a box containing a posted tweet and other information related to the tweet. the code that will implement this is in the /scripts/client.js file-->
+    </section>    
+    
+   
   </main>
 </body>
 
