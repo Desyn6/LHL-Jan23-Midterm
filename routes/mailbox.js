@@ -2,8 +2,13 @@
 const express = require('express');
 const router  = express.Router();
 
-//mailbox goes in mailbox file
+
 router.get('/', (req, res) => {
+  let email = req.session['userInfo']
+  //checking if user is loged
+  if(!email){
+    return res.redirect('/login')
+  } 
   res.render('mailbox');
 });
 

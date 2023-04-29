@@ -1,13 +1,5 @@
 const db = require('../connection');
 
-//This function gets all info from users table
-const getUsers = () => {
-  return db.query('SELECT * FROM users;')
-    .then(data => {
-      return data.rows;
-    });
-};
-
 const getUserByEmail = function(email) {
   //return null if no e-mail is passed in
   if (!email) {
@@ -31,7 +23,10 @@ const getUserByEmail = function(email) {
 const getListingsById = (id) => {
   const values = [id]
   const queryString = `
-  SELECT * FROM listings where id = $1;
+  SELECT * FROM listings 
+  WHERE id = $1
+  AND deleted = 'false'
+  ;
   `
     return db.query(queryString, values)
     .then(res => {
@@ -42,63 +37,25 @@ const getListingsById = (id) => {
 const getListingsByUserId = (userId) => {
   const values = [userId]
   const queryString = `
-  SELECT * FROM listings where owner_id = $1;
+  SELECT * FROM listings 
+  WHERE owner_id = $1
+  AND deleted = 'false'
+  ;
   `
     return db.query(queryString, values)
     .then(res => {
-      return res.rows[0];
-    });
-};
-
-// multi use function, can return listings by listin_di, owner_id, min_price, max_price
-const getAllListings = (options, limit = 10) => {
-  const queryParams = [];
-  let queryString = `
-  SELECT * FROM listings
-  WHERE 1 = 1`;
-  // return listings by listing_id
-  if (options.id) {
-    queryParams.push(`%${options.id}%`);
-    queryString += `AND id $${queryParams.length} `;
-  }
-  // given owner_id return properties belonging to that owner
-  if (options.owner_id) {
-    queryParams.push(`${options.owner_id}`);
-    queryString += `AND owner_id = $${queryParams.length} `;
-  }
-  // return listings >= min price search parameter
-  if (options.minimum_price) {
-    queryParams.push(options.minimum_price);
-    queryString += `AND asking_price >= $${queryParams.length} `;
-  }
-  // return listings <= max price search parameter
-  if (options.maximum_price) {
-    queryParams.push(`${options.maximum_price} `);
-    queryString += `AND asking_price <= $${queryParams.length} `;
-  }
-
-  queryParams.push(limit);
-  queryString += `
-  LIMIT $${queryParams.length};`;
-
-  return db.query(queryString, queryParams)
-    .then((result) => {
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
+      return res.rows;
     });
 };
 
 // receives searchTerms from search bar and returns any matching listings
-const getListingsBySearch = (searchFilters) => {
+const getListingsBySearch = (searchFilters, limit) => {
   
     const values = [];
   let queryString = `
-  SELECT listings.*, photos.url as "thumbnail-url"
+  SELECT listings.*
   FROM listings
-  JOIN photos ON listings.id = photos.listing_id
-  WHERE 1 = 1
+  WHERE deleted = 'false'
   `;
 
   if (searchFilters) {
@@ -112,9 +69,13 @@ const getListingsBySearch = (searchFilters) => {
       queryString += `AND asking_price = $${values.length}`;
     }
   }
-  
+
+  if(limit){
+    queryString += `LIMIT ${limit}`;
+  }
+
   queryString += `;`;
-  
+
   return db
     .query(queryString, values)
     .then(res => {
@@ -122,15 +83,54 @@ const getListingsBySearch = (searchFilters) => {
     });
 };
 
-const getFavoritesById = (user_id) => {
-  return db.query(`SELECT * FROM listings where id = ${user_id};`)
-    .then(data => {
-      return data.rows;
-    });
+const getListingsUpForSale = (searchFilters, limit) => {
+  
+  const values = [];
+let queryString = `
+SELECT listings.*
+FROM listings
+WHERE deleted = 'false'
+AND sold = 'false'
+`;
+
+if (searchFilters) {
+  if (searchFilters.title && searchFilters.title !== '') {
+    values.push(`${searchFilters.title}`);
+    queryString += `AND title = $${values.length}`;
+  }
+
+  if (searchFilters.askingPrice && searchFilters.askingPrice !== '') {
+    values.push(searchFilters.askingPrice);
+    queryString += `AND asking_price = $${values.length}`;
+  }
+}
+
+if(limit){
+  queryString += `LIMIT ${limit}`;
+}
+
+queryString += `;`;
+
+return db
+  .query(queryString, values)
+  .then(res => {
+    return res.rows;
+  });
 };
-// returns the url for the specified listing id.
-const getPhotos = (listing_id) => {
-  return db.query(`SELECT url FROM photos where listing_id = ${listing_id};`)
+
+
+const getFavoritesByUserId = (user_id) => {
+  if(!user_id){
+    return null
+  }
+  const values = [user_id];
+  const queryString = `
+  SELECT * 
+  FROM favorites 
+  WHERE user_id = $1
+  ;`;
+
+  return db.query(queryString, values)
     .then(data => {
       return data.rows;
     });
@@ -216,6 +216,48 @@ const addListing = function(newListing) {
     });
 };
 
+const addFavorite = function(userId, listingId) {
+  //if information is not provided return null
+  if (!userId || !listingId) {
+    return null;
+  }
+
+  const values = [userId, listingId];
+  const queryString = `
+  INSERT INTO favorites (
+    user_id,
+    listing_id
+    ) 
+    VALUES (
+    $1, 
+    $2
+    )
+    RETURNING *;`;
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows;
+    });
+};
+
+const deleteFavorite = function(userId, listingId) {
+  //if information is not provided return null
+  if (!userId || !listingId) {
+    return null;
+  }
+
+  const values = [userId, listingId];
+  const queryString = `
+  DELETE FROM favorites 
+  WHERE user_id = $1
+  AND listing_id = $2
+  ;`;
+
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows;
+    });
+};
+
 const addPhotos = function(photos) {
   //if information is not provided return null
   if (!photos.listing_id || !photos.url) {
@@ -240,17 +282,77 @@ const addPhotos = function(photos) {
     });
 };
 
+const setItemToSold = function(listingId) {
+  //if information is not provided return null
+  if (!listingId) {
+    return null;
+  }
+
+  const values = [listingId, true];
+  const queryString = `
+  UPDATE listings
+  SET sold = $2
+  WHERE id = $1
+  RETURNING *;`;
+
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows;
+    });
+};
+
+const setItemToNotSold = function(listingId) {
+  //if information is not provided return null
+  if (!listingId) {
+    return null;
+  }
+
+  const values = [listingId, false];
+  const queryString = `
+  UPDATE listings
+  SET sold = $2
+  WHERE id = $1
+  RETURNING *;`;
+
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows;
+    });
+};
+
+const deleteItem = function(listingId) {
+  //if information is not provided return null
+  if (!listingId) {
+    return null;
+  }
+
+  const values = [listingId, true];
+  const queryString = `
+  UPDATE listings
+  SET deleted = $2
+  WHERE id = $1
+  RETURNING *;`;
+
+  return db.query(queryString, values)
+    .then(res => {
+      return res.rows;
+    });
+};
+
 module.exports = {
   addUser,
   addListing,
   addPhotos,
-  getUsers,
   getListingsById,
   getListingsByUserId,
   getUserByEmail,
-  getAllListings,
   getListingsBySearch,
-  getFavoritesById,
-  getPhotos,
+  getListingsUpForSale,
+  getFavoritesByUserId,
+  addFavorite,
+  deleteFavorite,
+  deleteItem,
+  setItemToSold,
+  setItemToNotSold,
   getConversation
 };

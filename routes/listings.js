@@ -3,7 +3,7 @@ const express = require('express');
 const router  = express.Router();
 const generalQueries = require('../db/queries/general');
 
-
+//this rout renders the "My Listings page"
 router.get('/', (req, res) => {
   let email = req.session['userInfo']
   //checking if user is loged
@@ -13,14 +13,22 @@ router.get('/', (req, res) => {
   res.render('manage')
 })
 
+//this rout renders the search page
 router.get('/search', (req, res) => {
   res.render('search')
 })
 
+//this rout renders the create listing page
 router.get('/create', (req, res) => {
+  let email = req.session['userInfo']
+  //checking if user is loged
+  if(!email){
+    return res.redirect('/login')
+  } 
   res.render('create')
 });
 
+//this rout add a new listing at the submit button event
 router.post("/create", (req, res) => {
   let newListing = req.body;
   const userEmail = req.session.userInfo
@@ -62,5 +70,15 @@ router.post("/create", (req, res) => {
           return res.send (error.message)
       })
 });
+
+//this rout renders the page featuring user's favorite items
+router.get('/favorites', (req, res) => {
+  let email = req.session['userInfo']
+  //checking if user is loged
+  if(!email){
+    return res.redirect('/login')
+  } 
+  res.render('favorite-items')
+})
 
 module.exports = router;
