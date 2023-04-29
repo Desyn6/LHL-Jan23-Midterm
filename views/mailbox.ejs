@@ -34,13 +34,16 @@
 
     <div class="messages-interface">
 
-      <h1 class="conversation-with">Conversation with John Doe</h1>
-      <p class="user-details">Phone number: 604-604-7788 <br> e-mail: Johnny@doe.com</p>
+      <h1 class="conversation-with">Conversation with <span class="user-name">John Doe</span></h1>
+      <p>Phone number: <span class="phone-number">604-604-7788</span><br>
+         e-mail: <span class="email">Johnny@doe.com</span><br>
+         user ID: <span class="user-id">2</span>
+      </p>
 
       <form action="" method="post" class="response-box">
         <div class="response-form">
-          <textarea 
-            name="message" 
+          <textarea
+            name="message"
             placeholder="Type your response here"
             method="POST"
             cols="100"
@@ -60,10 +63,8 @@
             I can come pick up on Sunday.
           </p>
           <div class="sent-at">1 hour ago</div>
-          <!-- Should only dynamically create a respond button for most recent message and  -->
-          <button type="submit">Respond</button>
         </article>
-        
+
         <article class="message-container">
           <div class="sender-name">You</div>
           <p>
@@ -85,4 +86,4 @@
   </main>
 </body>
 
-</html> 
+</html>
