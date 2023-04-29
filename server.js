@@ -65,7 +65,8 @@ app.use('/mailbox', mailboxRouts);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const templateVars = { user: req.session.userInfo };
+  res.render('index', templateVars);
 });
 
 app.listen(PORT, () => {

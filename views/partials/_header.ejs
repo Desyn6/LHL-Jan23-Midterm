@@ -1,17 +1,32 @@
 <header>
-  <nav>
-    <ul>
-      <a class="logo" href="/createRout">Buy/sell</a>
+  <% if (!user) { %>
+  <nav class="container">
+    <div class="nav-left">
+      <a class="home" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
+    </div>
+    <div class="nav-right">
+      <a class="search_button" href="/listings/search"><i class="fa-solid fa-magnifying-glass"></i></a>
       <a class="home" href="/">Home</a>
-      <a class="search_button" href="/listings/search">Search</a>
-      <a class="my_listings" href="/listings">My Listings</a>
-      <a class="create_listing" href="/listings/create">Create Listing</a>
-      <a class="favorites" href="/listings/favorites">Favorites</a>
-      <a class="mailbox" href="/mailbox">Mailbox</a>
       <a class="login" href="/login">Login</a>
-      <a class="login" href="/login/logout">Logout</a>
       <a class="register" href="/register">Register</a>
-      <a class="favorite_Items" href="/listings/favorites">Favorite Items</a>
-    </ul>
+    </div>
   </nav>
+  
+  <% } else { %>
+    <nav class="container">
+      <div class="nav-left">
+        <a class="home" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
+        <a class="search_button" href="/listings/search"><i class="fa-solid fa-magnifying-glass"></i></a>
+      </div>
+      <div class="nav-right">
+        <span>Hello, <%= user %></span>
+        <a class="login" href="/login/logout">Logout</a>
+        <a class="home" href="/">Home</a>
+        <a class="favorites" href="/listings/favorites">Favorites</a>
+        <a class="my_listings" href="/listings">My Listings</a>
+        <a class="mailbox" href="/mailbox">Mailbox</a>
+        <a class="create_listing" href="/listings/create">Create Listing</a>
+      </div>
+  </nav>
+  <% } %>
 </header>
