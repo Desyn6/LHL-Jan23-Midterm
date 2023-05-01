@@ -216,3 +216,19 @@ const renderManageListings = function(listingsObjectArr, idSelector) {
       $(idSelector).prepend(postListing);
     }
 };
+
+const renderMessage = function(messageObj) {
+  return `<article class="message-container">
+      <p>
+        ${escape(messageObj.message)}
+      </p>
+    <div class="sent-at">${timeago.format(messageObj.created_at)}</div>
+  </article>`
+};
+
+const renderMessages = function(messages) {
+  $('.messages-container').html('');
+  for (message of messages) {
+    $('.messages-container').prepend(renderMessage(message));
+  }
+};

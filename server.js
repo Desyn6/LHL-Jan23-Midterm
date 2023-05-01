@@ -45,6 +45,7 @@ const loginRouts = require('./routes/login');
 const registerRouts = require('./routes/register');
 const listingsRouts = require('./routes/listings');
 const mailboxRouts = require('./routes/mailbox');
+const mailboxApiRoutes = require('./routes/mailbox-api');
 
 // Mount all resource routes
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -53,6 +54,7 @@ app.use('/api/search', searchApiRoutes);
 app.use('/api/listings', userListingsApiRoutes);
 app.use('/api/listing/buttons', listingButtonsApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+app.use('/api/mailbox', mailboxApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/login', loginRouts);
 app.use('/register', registerRouts);

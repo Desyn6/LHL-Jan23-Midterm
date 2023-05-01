@@ -136,18 +136,27 @@ const getFavoritesByUserId = (user_id) => {
     });
 };
 
-const getConversation = (listing_id, seller_id, client_id) => {
-  const values = [listing_id, seller_id, client_id];
-  const queryString = `
-  SELECT * FROM messages
-  WHERE listing_id = $1
-  AND seller_id = $2
-  AND client_id = $2;`;
-  return db.query(queryString, values)
-    .then(data => {
-      return data.rows;
-    });
-};
+  /** Fetches conversation as an 
+   * 
+   * @param {*} listing_id 
+   * @param {*} email 
+   * @returns 
+   */
+  const getConversation = (listing_id, email) => {
+    // catch non-logged-in users
+    if(!email) return null;
+    // set query params to values
+    const values = [listing_id, email];
+
+    const queryString = `SELECT message, created_at from messages
+    JOIN listings ON listings.id = messages.listing_id
+    WHERE listing_id = $1
+    AND client_id = (select id from users where email = $2);`;
+    
+    return db.query(queryString, values)
+      .then(data => data.rows)
+      .catch(error => console.error(error));
+  };
 
 const addUser = function(newUser) {
   //if information is not provided return null

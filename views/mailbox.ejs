@@ -15,7 +15,14 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+  <script 
+  src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" 
+  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" 
+  crossorigin="anonymous" 
+  referrerpolicy="no-referrer">
+</script>
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script src="/scripts/helpers.js"></script>
   <script src="/scripts/app.js"></script>
   <script src="/scripts/mailbox.js"></script>
 </head>
@@ -41,7 +48,7 @@
          user ID: <span class="user-id">2</span>
       </p>
 
-      <form action="" method="post" class="response-box">
+      <form action="/api/mailbox/" method="post" class="response-box">
         <div class="response-form">
           <textarea
             name="message"
@@ -57,30 +64,7 @@
       </form>
 
       <div class="messages-container">
-        <!-- placeholder messages -->
-        <article class="message-container">
-          <div class="sender-name">John Doe</div>
-          <p>
-            I can come pick up on Sunday.
-          </p>
-          <div class="sent-at">1 hour ago</div>
-        </article>
-
-        <article class="message-container">
-          <div class="sender-name">You</div>
-          <p>
-            I have three bunches available.
-          </p>
-          <div class="sent-at">3 hours ago</div>
-        </article>
-
-        <article class="message-container">
-          <div class="sender-name">John Doe</div>
-          <p>
-            Hello, I would like to buy some bananas please.
-          </p>
-          <div class="sent-at">6 hours ago</div>
-        </article>
+        <!-- this container will be populated dynamically where messages are found between a buyer and seller -->
       </div>
 
     </div>
