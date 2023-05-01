@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
-  <script 
-  src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" 
-  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" 
-  crossorigin="anonymous" 
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+  crossorigin="anonymous"
   referrerpolicy="no-referrer">
 </script>
   <script src="/vendor/jquery-3.0.0.js"></script>
@@ -47,25 +47,25 @@
          e-mail: <span class="email">Johnny@doe.com</span><br>
          user ID: <span class="user-id">2</span>
       </p>
-
-      <form action="/api/mailbox/" method="post" class="response-box">
+      <!--Message Form-->
+      <form action="/api/mailbox" method="post" class="response-box">
+        <input type="hidden" name="listing_id" value="<%= listing_id %>">
         <div class="response-form">
           <textarea
             name="message"
             placeholder="Type your response here"
-            method="POST"
             cols="100"
             rows="3"></textarea>
         </div>
         <div>
-          <!-- this button will submit the form data to the server it will be stored inside req.body.message -->
-          <button type="send" >Submit</button>
+          <button type="submit" name="submit">Submit</button>
         </div>
       </form>
 
       <div class="messages-container">
         <!-- this container will be populated dynamically where messages are found between a buyer and seller -->
       </div>
+
 
     </div>
   </main>
