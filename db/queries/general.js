@@ -1,5 +1,34 @@
 const db = require('../connection');
 
+// NEW CODE
+// function to insert message into messages table
+const addMessage = (listing_id, email, message) => {
+  const queryString1 = `SELECT name FROM users WHERE email = $1`;
+  const queryString2 = `
+    INSERT INTO messages (message, listing_id, seller_id, client_id)
+    VALUES (
+      $3,
+      $1,
+      (SELECT owner_id FROM listings WHERE id = $1),
+      (SELECT id FROM users WHERE email = $2)
+    ) returning *;
+  `;
+
+// two db queries are used.
+// First to get the name of the user who is sending the message.
+// Second to insert the message into the messages table
+  return db.query(queryString1, [email])
+    .then((res) => {
+      const name = res.rows[0].name;
+      console.log('name', name);
+      return db.query(queryString2, [listing_id, email, `${name} says: ${message}`])
+    })
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => console.error("error from general.js", error));
+};
+
 const getUserByEmail = function(email) {
   //return null if no e-mail is passed in
   if (!email) {
@@ -23,7 +52,7 @@ const getUserByEmail = function(email) {
 const getListingsById = (id) => {
   const values = [id]
   const queryString = `
-  SELECT * FROM listings 
+  SELECT * FROM listings
   WHERE id = $1
   AND deleted = 'false'
   ;
@@ -37,7 +66,7 @@ const getListingsById = (id) => {
 const getListingsByUserId = (userId) => {
   const values = [userId]
   const queryString = `
-  SELECT * FROM listings 
+  SELECT * FROM listings
   WHERE owner_id = $1
   AND deleted = 'false'
   ;
@@ -50,7 +79,7 @@ const getListingsByUserId = (userId) => {
 
 // receives searchTerms from search bar and returns any matching listings
 const getListingsBySearch = (searchFilters, limit) => {
-  
+
     const values = [];
   let queryString = `
   SELECT listings.*
@@ -84,7 +113,7 @@ const getListingsBySearch = (searchFilters, limit) => {
 };
 
 const getListingsUpForSale = (searchFilters, limit) => {
-  
+
   const values = [];
 let queryString = `
 SELECT listings.*
@@ -125,8 +154,8 @@ const getFavoritesByUserId = (user_id) => {
   }
   const values = [user_id];
   const queryString = `
-  SELECT * 
-  FROM favorites 
+  SELECT *
+  FROM favorites
   WHERE user_id = $1
   ;`;
 
@@ -136,18 +165,27 @@ const getFavoritesByUserId = (user_id) => {
     });
 };
 
-const getConversation = (listing_id, seller_id, client_id) => {
-  const values = [listing_id, seller_id, client_id];
-  const queryString = `
-  SELECT * FROM messages
-  WHERE listing_id = $1
-  AND seller_id = $2
-  AND client_id = $2;`;
-  return db.query(queryString, values)
-    .then(data => {
-      return data.rows;
-    });
-};
+  /** Fetches conversation as an
+   *
+   * @param {*} listing_id
+   * @param {*} email
+   * @returns
+   */
+  const getConversation = (listing_id, email) => {
+    // catch non-logged-in users
+    if(!email) return null;
+    // set query params to values
+    const values = [listing_id, email];
+
+    const queryString = `SELECT message, created_at from messages
+    JOIN listings ON listings.id = messages.listing_id
+    WHERE listing_id = $1
+    AND client_id = (select id from users where email = $2);`;
+
+    return db.query(queryString, values)
+      .then(data => data.rows)
+      .catch(error => console.error(error));
+  };
 
 const addUser = function(newUser) {
   //if information is not provided return null
@@ -159,16 +197,16 @@ const addUser = function(newUser) {
   //insert a new user into users entity and return an object with the new user's information
   const queryString = `
   INSERT INTO users (
-    name, 
-    email, 
+    name,
+    email,
     password,
     phone,
     city,
     created_at
-    ) 
+    )
     VALUES (
-    $1, 
-    $2, 
+    $1,
+    $2,
     $3,
     $4,
     $5,
@@ -192,17 +230,17 @@ const addListing = function(newListing) {
   //insert a new listing into listings entity and return an object with the new information
   const queryString = `
   INSERT INTO listings (
-    title, 
-    long_description, 
+    title,
+    long_description,
     date_created,
     condition,
     thumbnail_url,
     owner_id,
     asking_price
-    ) 
+    )
     VALUES (
-    $1, 
-    $2, 
+    $1,
+    $2,
     $3,
     $4,
     $5,
@@ -227,9 +265,9 @@ const addFavorite = function(userId, listingId) {
   INSERT INTO favorites (
     user_id,
     listing_id
-    ) 
+    )
     VALUES (
-    $1, 
+    $1,
     $2
     )
     RETURNING *;`;
@@ -247,7 +285,7 @@ const deleteFavorite = function(userId, listingId) {
 
   const values = [userId, listingId];
   const queryString = `
-  DELETE FROM favorites 
+  DELETE FROM favorites
   WHERE user_id = $1
   AND listing_id = $2
   ;`;
@@ -270,9 +308,9 @@ const addPhotos = function(photos) {
   INSERT INTO photos (
     listing_id,
     url
-    ) 
+    )
     VALUES (
-    $1, 
+    $1,
     $2
     )
     RETURNING *;`;
@@ -340,6 +378,8 @@ const deleteItem = function(listingId) {
 };
 
 module.exports = {
+  // NEW CODE
+  addMessage,
   addUser,
   addListing,
   addPhotos,

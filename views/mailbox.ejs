@@ -15,8 +15,16 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+  integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+</script>
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/helpers.js"></script>
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/mailbox.js"></script>
 </head>
 
 <body>
@@ -34,55 +42,32 @@
 
     <div class="messages-interface">
 
-      <h1 class="conversation-with">Conversation with John Doe</h1>
-      <p class="user-details">Phone number: 604-604-7788 <br> e-mail: Johnny@doe.com</p>
-
-      <form action="" method="post" class="response-box">
+      <h1 class="conversation-with">Conversation with <span class="user-name">John Doe</span></h1>
+      <p>Phone number: <span class="phone-number">604-604-7788</span><br>
+         e-mail: <span class="email">Johnny@doe.com</span><br>
+         user ID: <span class="user-id">2</span>
+      </p>
+      <!--Message Form-->
+      <form action="/api/mailbox" method="post" class="response-box">
+        <input type="hidden" name="listing_id" value="<%= listing_id %>">
         <div class="response-form">
-          <textarea 
-            name="message" 
+          <textarea
+            name="message"
             placeholder="Type your response here"
-            method="POST"
             cols="100"
             rows="3"></textarea>
         </div>
         <div>
-          <!-- this button will submit the form data to the server it will be stored inside req.body.message -->
-          <button type="send" >Submit</button>
+          <button type="submit" name="submit">Submit</button>
         </div>
       </form>
 
       <div class="messages-container">
-        <!-- placeholder messages -->
-        <article class="message-container">
-          <div class="sender-name">John Doe</div>
-          <p>
-            I can come pick up on Sunday.
-          </p>
-          <div class="sent-at">1 hour ago</div>
-          <!-- Should only dynamically create a respond button for most recent message and  -->
-          <button type="submit">Respond</button>
-        </article>
-        
-        <article class="message-container">
-          <div class="sender-name">You</div>
-          <p>
-            I have three bunches available.
-          </p>
-          <div class="sent-at">3 hours ago</div>
-        </article>
-
-        <article class="message-container">
-          <div class="sender-name">John Doe</div>
-          <p>
-            Hello, I would like to buy some bananas please.
-          </p>
-          <div class="sent-at">6 hours ago</div>
-        </article>
+        <!-- this container will be populated dynamically where messages are found between a buyer and seller -->
       </div>
+
 
     </div>
   </main>
 </body>
-
-</html> 
+</html>
