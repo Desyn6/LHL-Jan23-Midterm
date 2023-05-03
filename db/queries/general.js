@@ -49,6 +49,32 @@ const getUserByEmail = function(email) {
     });
 };
 
+const getSentQueries = (email) => {
+  const values = [email];
+  const queryString = `
+    SELECT listings.title, listings.id, messages.seller_id FROM messages
+    JOIN listings ON listings.id = listing_id
+    JOIN users ON users.id = client_id
+    WHERE email = $1
+    GROUP BY listings.title, listings.id, messages.seller_id;`;
+
+  return db.query(queryString, values)
+    .then(res => res.rows[0]);
+};
+
+const getReceivedQueries = (email) => {
+  const values = [email];
+  const queryString = `
+    SELECT listings.title, listings.id, messages.client_id FROM messages
+    JOIN listings ON listings.id = listing_id
+    JOIN users ON users.id = seller_id
+    WHERE email = $1
+    GROUP BY listings.title, listings.id, messages.client_id;`
+
+  return db.query(queryString, values) 
+    .then(res => res.rows[0]);
+}
+
 const getListingsById = (id) => {
   const values = [id]
   const queryString = `
@@ -165,7 +191,7 @@ const getFavoritesByUserId = (user_id) => {
     });
 };
 
-  /** Fetches conversation as an
+  /** Fetches conversation as an array of message objects for the buyer
    *
    * @param {*} listing_id
    * @param {*} email
@@ -394,5 +420,7 @@ module.exports = {
   deleteItem,
   setItemToSold,
   setItemToNotSold,
-  getConversation
+  getConversation,
+  getReceivedQueries,
+  getSentQueries
 };

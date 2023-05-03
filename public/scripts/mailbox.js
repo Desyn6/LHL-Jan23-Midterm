@@ -3,9 +3,15 @@ const urlListingId = getParam('lid');
 
 // send get request to render thread if redirected with lid 
 if(urlListingId) {
-  $.get('/api/mailbox/', {urlListingId})
+  $.get('/api/mailbox/convo', {urlListingId})
     .then((data) => renderMessages(data));
-}
+};
+
+$.get('/api/mailbox/sent')
+  .then((data) => console.log(data));
+
+$.get('/api/mailbox/received')
+  .then((data) => console.log(data));  
 
 $(document).ready(function() {
   //listeners to send get request to mailbox

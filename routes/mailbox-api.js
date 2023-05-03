@@ -2,12 +2,33 @@ const express = require('express');
 const router  = express.Router();
 const generalQueries = require('../db/queries/general');
 
-router.get('/', (req, res) => {
+// get conversation thread
+router.get('/convo', (req, res) => {
   const userEmail = req.session.userInfo;
-  const listingId = req.query.listingId;
+  const urlListingId = req.query.urlListingId;
+
+  console.log(urlListingId, userEmail)
   generalQueries
-    .getConversation(listingId, userEmail)
-    .then((data) => res.send(data))
+    .getConversation(urlListingId, userEmail)
+    .then((data) => res.send(data));
+});
+
+// get received queries for inbox
+router.get('/received', (req, res) => {
+  const userEmail = req.session.userInfo;
+
+  generalQueries
+    .getReceivedQueries(userEmail)
+    .then((data) => res.send(data));
+});
+
+// get sent queries for inbox
+router.get('/sent', (req, res) => {
+  const userEmail = req.session.userInfo;
+
+  generalQueries
+    .getSentQueries(userEmail)
+    .then((data) => res.send(data));
 });
 
 // grabs message and listing_id from req.body, grabs email from session
