@@ -8,25 +8,25 @@ if(urlListingId) {
 };
 
 $.get('/api/mailbox/sent')
-  .then((data) => console.log(data));
+  .then((data) => renderInboxItems(data, 'sent'));
 
 $.get('/api/mailbox/received')
-  .then((data) => console.log(data));  
+  .then((data) => renderInboxItems(data, 'received'));  
 
 $(document).ready(function() {
   //listeners to send get request to mailbox
   //from-buyer listeners
-  $('.buyer-query').on('click', function() {
-    const $buyerEmail = $(this).children().children('.buyer-email').text();
-    const $listingId = $(this).children().children('.listing-id').text();
+  $(document).on('click', '.received-mail', function() {
+    const $buyerEmail = $(this).children('.buyer-email').text();
+    const $listingId = $(this).children('.listing-id').text();
 
     console.log($buyerEmail, $listingId)
   });
 
   //to-seller listeners
-  $('.to-seller').on('click', function() {
-    const $sellerEmail = $(this).children().children('.seller-email').text();
-    const $listingId = $(this).children().children('.listing-id').text();
+  $(document).on('click', '.sent-mail', function() {
+    const $sellerEmail = $(this).children('.seller-email').text();
+    const $listingId = $(this).children('.listing-id').text();
 
     console.log($sellerEmail, $listingId)
   });

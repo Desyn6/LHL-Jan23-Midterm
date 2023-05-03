@@ -232,3 +232,40 @@ const renderMessages = function(messages) {
     $('.messages-container').prepend(renderMessage(message));
   }
 };
+
+// renders HTML for received mail items
+const renderReceivedMail = function(mailInfo) {
+  return `
+  <div class="received-mail">
+    ${escape(mailInfo.title)}
+    <span class="buyer-email">${escape(mailInfo.client_id)}</span><br>
+    listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
+  </div>`
+};
+
+// renders HTML for sent mail items
+const renderSentMail = function(mailInfo) {
+  return `
+  <div class="sent-mail">
+    ${escape(mailInfo.title)}
+    <span class="seller-email">${escape(mailInfo.seller_id)}</span><br>
+    listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
+  </div>`
+};
+
+// dynamically pushes rendered HTML elements to respective containers
+const renderInboxItems = function(mailItems, mailDir) {
+  if (mailDir === 'received') {
+    $('.received-queries-container').html('')
+    for (item of mailItems) {
+      $('.received-queries-container').prepend(renderReceivedMail(item))
+    }
+  }
+
+  if (mailDir === 'sent') {
+    $('.sent-queries-container').html('')
+    for (item of mailItems) {
+      $('.sent-queries-container').prepend(renderSentMail(item))
+    }
+  }
+};
