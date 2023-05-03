@@ -59,7 +59,7 @@ const getSentQueries = (email) => {
     GROUP BY listings.title, listings.id, messages.seller_id;`;
 
   return db.query(queryString, values)
-    .then(res => res.rows[0]);
+    .then(res => res.rows);
 };
 
 const getReceivedQueries = (email) => {
@@ -72,7 +72,7 @@ const getReceivedQueries = (email) => {
     GROUP BY listings.title, listings.id, messages.client_id;`
 
   return db.query(queryString, values) 
-    .then(res => res.rows[0]);
+    .then(res => res.rows);
 }
 
 const getListingsById = (id) => {
