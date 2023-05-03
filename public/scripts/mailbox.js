@@ -20,7 +20,7 @@ $(document).ready(function() {
     const $buyerEmail = $(this).children('.buyer-email').text();
     const $listingId = $(this).children('.listing-id').text();
 
-    console.log($buyerEmail, $listingId)
+    console.log('buyer email: ', $buyerEmail, 'listing id: ', $listingId)
   });
 
   //to-seller listeners
@@ -28,6 +28,6 @@ $(document).ready(function() {
     const $sellerEmail = $(this).children('.seller-email').text();
     const $listingId = $(this).children('.listing-id').text();
 
-    console.log($sellerEmail, $listingId)
+    console.log('seller email: ', $sellerEmail, 'listing id: ', $listingId)
   });
 })

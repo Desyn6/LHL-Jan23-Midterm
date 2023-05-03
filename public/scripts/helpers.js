@@ -237,8 +237,8 @@ const renderMessages = function(messages) {
 const renderReceivedMail = function(mailInfo) {
   return `
   <div class="received-mail">
-    ${escape(mailInfo.title)}
-    <span class="buyer-email">${escape(mailInfo.client_id)}</span><br>
+    ${escape(mailInfo.title)}<br>
+    Buyer id: <span class="buyer-email">${escape(mailInfo.client_id)}</span><br>
     listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
   </div>`
 };
@@ -247,8 +247,8 @@ const renderReceivedMail = function(mailInfo) {
 const renderSentMail = function(mailInfo) {
   return `
   <div class="sent-mail">
-    ${escape(mailInfo.title)}
-    <span class="seller-email">${escape(mailInfo.seller_id)}</span><br>
+    ${escape(mailInfo.title)}<br>
+    Seller id: <span class="seller-email">${escape(mailInfo.seller_id)}</span><br>
     listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
   </div>`
 };
