@@ -36,10 +36,11 @@ router.get('/sent', (req, res) => {
 router.post('/', (req, res) => {
   const email = req.session.userInfo;
   const { message, listing_id } = req.body;
+
   generalQueries
     .addMessage(listing_id, email, message)
     .then((data) => {
-      res.redirect(`/mailbox?lid=${listing_id}`);
+      res.redirect('back');
     })
     .catch((error) => {
       console.log("ERROR", error);
