@@ -238,8 +238,8 @@ const renderReceivedMail = function(mailInfo) {
   return `
   <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}"> 
   <div>
-    ${escape(mailInfo.title)}<br>
-    Buyer id: <span class="buyer-email">${escape(mailInfo.client_id)}</span>
+    <span class="listing-name">${escape(mailInfo.title)}</span><br>
+    Buyer id: <span class="user-id">${escape(mailInfo.client_id)}</span>
     <br>---------------
   </div>
   </a>`
@@ -250,8 +250,8 @@ const renderSentMail = function(mailInfo) {
   return `
   <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
     <div>
-      ${escape(mailInfo.title)}<br>
-      Seller id: <span class="seller-email">${escape(mailInfo.seller_id)}</span>
+      <span class="listing-name">${escape(mailInfo.title)}</span><br>
+      Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
       <br>---------------
     </div>
   </a>`
@@ -273,3 +273,15 @@ const renderInboxItems = function(mailItems, mailDir) {
     }
   }
 };
+
+const writeUserDetails = function(userInfo) {
+  const userDetailsString = ` 
+  <h1 class="conversation-with">Conversation with <span class="user-name">${escape(userInfo.name)}</span></h1>
+  <p>Phone number: <span class="phone-number">${escape(userInfo.phone)}</span><br>
+    e-mail: <span class="email">${escape(userInfo.email)}</span><br>
+  </p>
+  `
+
+  $('.conversation-with-container').html('').prepend(userDetailsString)
+
+}

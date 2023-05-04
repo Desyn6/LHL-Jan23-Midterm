@@ -419,6 +419,15 @@ const deleteItem = function(listingId) {
     });
 };
 
+const getUserById = function(id) {
+  const queryString = `
+    SELECT name, email, phone FROM users
+    WHERE id = $1;`
+
+  return db.query(queryString, [id])
+    .then(res => res.rows);
+}
+
 module.exports = {
   // NEW CODE
   addMessage,
@@ -438,5 +447,6 @@ module.exports = {
   setItemToNotSold,
   getConversation,
   getReceivedQueries,
-  getSentQueries
+  getSentQueries,
+  getUserById
 };

@@ -23,3 +23,9 @@ $.get('/api/mailbox/sent')
 $.get('/api/mailbox/received')
   .then((data) => renderInboxItems(data, 'received'));  
 
+$(document).ready(function() {
+  const idForQuery = { userId: urlParams.buyerId || urlParams.sellerId};
+  $.get('/api/users/userInfo', idForQuery)
+    .then((data) => writeUserDetails(data))
+
+})

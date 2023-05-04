@@ -7,6 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const generalQueries = require('../db/queries/general');
 
 //This rout runs th function generalQueries that is declared in db/queries/users.js
 router.get('/', (req, res) => {
@@ -22,5 +23,11 @@ router.get('/', (req, res) => {
     });
 
 });
+
+router.get('/userInfo', (req, res) => {
+  generalQueries
+    .getUserById(req.query.userId)
+    .then((data) => res.send(data[0]))
+})
 
 module.exports = router;

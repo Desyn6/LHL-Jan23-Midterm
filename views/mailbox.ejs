@@ -44,12 +44,9 @@
     </sidebar>
 
     <div class="messages-interface">
-
-      <h1 class="conversation-with">Conversation with <span class="user-name">John Doe</span></h1>
-      <p>Phone number: <span class="phone-number">604-604-7788</span><br>
-         e-mail: <span class="email">Johnny@doe.com</span><br>
-         user ID: <span class="user-id">2</span>
-      </p>
+      <div class="conversation-with-container">
+        <!-- this container is to be populated with conversation partner upon load -->
+      </div>
       <!--Message Form-->
       <form action="/api/mailbox" method="post" class="response-box">
         <input type="hidden" name="listing_id" value="<%= listing_id %>">
