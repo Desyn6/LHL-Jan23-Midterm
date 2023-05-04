@@ -236,21 +236,25 @@ const renderMessages = function(messages) {
 // renders HTML for received mail items
 const renderReceivedMail = function(mailInfo) {
   return `
-  <div class="received-mail">
+  <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}"> 
+  <div>
     ${escape(mailInfo.title)}<br>
-    Buyer id: <span class="buyer-email">${escape(mailInfo.client_id)}</span><br>
-    listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
-  </div>`
+    Buyer id: <span class="buyer-email">${escape(mailInfo.client_id)}</span>
+    <br>---------------
+  </div>
+  </a>`
 };
 
 // renders HTML for sent mail items
 const renderSentMail = function(mailInfo) {
   return `
-  <div class="sent-mail">
-    ${escape(mailInfo.title)}<br>
-    Seller id: <span class="seller-email">${escape(mailInfo.seller_id)}</span><br>
-    listing id: <span class="listing-id">${escape(mailInfo.id)}</span>
-  </div>`
+  <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
+    <div>
+      ${escape(mailInfo.title)}<br>
+      Seller id: <span class="seller-email">${escape(mailInfo.seller_id)}</span>
+      <br>---------------
+    </div>
+  </a>`
 };
 
 // dynamically pushes rendered HTML elements to respective containers

@@ -1,5 +1,11 @@
 // Get listing id from url search string
 const urlListingId = getParam('lid');
+const urlBuyerId = getParam('cid');
+const urlSellerId = getParam('sid');
+
+const urlParams = {urlListingId, urlBuyerId, urlSellerId}
+
+console.log(urlParams);
 
 // send get request to render thread if redirected with lid 
 if(urlListingId) {
@@ -13,21 +19,3 @@ $.get('/api/mailbox/sent')
 $.get('/api/mailbox/received')
   .then((data) => renderInboxItems(data, 'received'));  
 
-$(document).ready(function() {
-  //listeners to send get request to mailbox
-  //from-buyer listeners
-  $(document).on('click', '.received-mail', function() {
-    const $buyerEmail = $(this).children('.buyer-email').text();
-    const $listingId = $(this).children('.listing-id').text();
-
-    console.log('buyer email: ', $buyerEmail, 'listing id: ', $listingId)
-  });
-
-  //to-seller listeners
-  $(document).on('click', '.sent-mail', function() {
-    const $sellerEmail = $(this).children('.seller-email').text();
-    const $listingId = $(this).children('.listing-id').text();
-
-    console.log('seller email: ', $sellerEmail, 'listing id: ', $listingId)
-  });
-})
