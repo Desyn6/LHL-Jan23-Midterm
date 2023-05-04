@@ -35,16 +35,24 @@ router.get('/sent', (req, res) => {
 // redirects to current mailbox page display the new message at the top of messages
 router.post('/', (req, res) => {
   const email = req.session.userInfo;
-  const { message, listing_id } = req.body;
+  const { message, listing_id, buyerId } = req.body;
+  console.log(req.body)
 
-  generalQueries
-    .addMessage(listing_id, email, message)
-    .then((data) => {
-      res.redirect('back');
-    })
+  if (!buyerId) {
+    generalQueries
+      .addBuyerMessage(listing_id, email, message)
+      .then(() => res.redirect('back'))
+      .catch((error) => {
+        console.log("ERROR", error);
+      });
+  } else {
+    generalQueries
+    .addSellerMessage(listing_id, email, message, buyerId)
+    .then(() => res.redirect('back'))
     .catch((error) => {
       console.log("ERROR", error);
     });
+  }
 });
 
 module.exports = router;

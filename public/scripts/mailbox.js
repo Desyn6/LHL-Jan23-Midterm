@@ -24,8 +24,18 @@ $.get('/api/mailbox/received')
   .then((data) => renderInboxItems(data, 'received'));  
 
 $(document).ready(function() {
-  const idForQuery = { userId: urlParams.buyerId || urlParams.sellerId};
-  $.get('/api/users/userInfo', idForQuery)
-    .then((data) => writeUserDetails(data))
-
+  if (urlParams.buyerId || urlParams.sellerId) {
+    const idForQuery = { userId: urlParams.buyerId || urlParams.sellerId};
+    $.get('/api/users/userInfo', idForQuery)
+      .then((data) => {
+        writeUserDetails(data)
+        
+        // write name to be buyer if other party is buyer
+        if(urlParams.buyerId) {
+          $('input[name="other_user_id"]')
+            .attr('name', 'buyerId')
+            .val(`${escape(urlParams.buyerId)}`)
+        }
+      })
+  };
 })

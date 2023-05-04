@@ -50,6 +50,7 @@
       <!--Message Form-->
       <form action="/api/mailbox" method="post" class="response-box">
         <input type="hidden" name="listing_id" value="<%= listing_id %>">
+        <input type="hidden" name="other_user_id" value="none">
         <div class="response-form">
           <textarea
             name="message"

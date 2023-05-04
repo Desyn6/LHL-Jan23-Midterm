@@ -2,7 +2,8 @@ const db = require('../connection');
 
 // NEW CODE
 // function to insert message into messages table
-const addMessage = (listing_id, email, message) => {
+//     .addMessage(listing_id, email, other_user_id, message)
+const addBuyerMessage = (listing_id, email, message) => {
   const queryString1 = `SELECT name FROM users WHERE email = $1`;
   const queryString2 = `
     INSERT INTO messages (message, listing_id, seller_id, client_id)
@@ -20,7 +21,6 @@ const addMessage = (listing_id, email, message) => {
   return db.query(queryString1, [email])
     .then((res) => {
       const name = res.rows[0].name;
-      console.log('name', name);
       return db.query(queryString2, [listing_id, email, `${name} says: ${message}`])
     })
     .then(data => {
@@ -28,6 +28,30 @@ const addMessage = (listing_id, email, message) => {
     })
     .catch(error => console.error("error from general.js", error));
 };
+
+// this function is a clone of addBuyerMessage but repurposed for sellers
+const addSellerMessage = (listing_id, sellerEmail, message, buyerId) => {
+  console.log('from addsellermsg: ', listing_id, sellerEmail, message, buyerId)
+
+  const queryString1 = `SELECT name FROM users WHERE email = $1`
+  const queryString2 = `
+    INSERT INTO messages (message, listing_id, seller_id, client_id)
+    VALUES (
+      $1,
+      $2,
+      (SELECT owner_id FROM listings WHERE id = $2),
+      $3
+    ) returning *;`;
+
+  return db.query(queryString1, [sellerEmail])
+    .then((res) => {
+      const name = res.rows[0].name;
+      console.log('name', `${name} says: ${message}`)
+      return db.query(queryString2, [`${name} says: ${message}`, listing_id, buyerId])
+    })
+    .then(data => data.rows)
+    .catch(error => console.error("error from general.js", error));
+}
 
 const getUserByEmail = function(email) {
   //return null if no e-mail is passed in
@@ -430,7 +454,8 @@ const getUserById = function(id) {
 
 module.exports = {
   // NEW CODE
-  addMessage,
+  addBuyerMessage,
+  addSellerMessage,
   addUser,
   addListing,
   addPhotos,
