@@ -197,16 +197,32 @@ const getFavoritesByUserId = (user_id) => {
    * @param {*} email
    * @returns
    */
-  const getConversation = (listing_id, email) => {
+  const getConversation = (urlParams, email) => {
     // catch non-logged-in users
     if(!email) return null;
-    // set query params to values
-    const values = [listing_id, email];
+    let values;
+    let queryString;
 
-    const queryString = `SELECT message, created_at from messages
-    JOIN listings ON listings.id = messages.listing_id
-    WHERE listing_id = $1
-    AND client_id = (select id from users where email = $2);`;
+    // seller route, sellerId will be NULL
+    if (!urlParams.sellerId) {
+      // query with listingId and buyerId
+      values = [urlParams.listingId, urlParams.buyerId]
+
+      queryString = `SELECT message, created_at FROM messages
+      JOIN listings ON listings.id = messages.listing_id
+      WHERE listing_id = $1
+      AND client_id = $2`
+    }
+
+    // buyer route: buyerId will be NULL
+    if (!urlParams.buyerId) {
+      values = [urlParams.listingId, email];
+      
+      queryString = `SELECT message, created_at from messages
+      JOIN listings ON listings.id = messages.listing_id
+      WHERE listing_id = $1
+      AND client_id = (select id from users where email = $2);`;
+    }
 
     return db.query(queryString, values)
       .then(data => data.rows)

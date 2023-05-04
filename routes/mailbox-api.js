@@ -5,11 +5,11 @@ const generalQueries = require('../db/queries/general');
 // get conversation thread
 router.get('/convo', (req, res) => {
   const userEmail = req.session.userInfo;
-  const urlListingId = req.query.urlListingId;
+  // contains {listingId, buyerId, sellerId}
+  const urlParams = req.query;
 
-  console.log(urlListingId, userEmail)
   generalQueries
-    .getConversation(urlListingId, userEmail)
+    .getConversation(urlParams, userEmail)
     .then((data) => res.send(data));
 });
 
