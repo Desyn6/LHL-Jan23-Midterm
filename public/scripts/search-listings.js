@@ -6,7 +6,10 @@ $(document).ready(function () {
     $.ajax({
       method: 'post',
       url: '/api/search',
-      data: {title: $('#title').val(), datePosted: $('#date-posted').val(), askingPrice: $('#asking-price').val()}
+      data: {title: $('#title').val(),
+      datePosted: $('#date-posted').val(),
+      askingPrice: $('#asking-price').val(),
+      maxPrice: $('#max-price').val()}
     })
     .then((response) => {
       renderListings(response, '.appending_listings_search_container')

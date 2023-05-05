@@ -80,24 +80,28 @@ const getListingsByUserId = (userId) => {
 // receives searchTerms from search bar and returns any matching listings
 const getListingsBySearch = (searchFilters, limit) => {
 
-    const values = [];
-  let queryString = `
-  SELECT listings.*
-  FROM listings
-  WHERE deleted = 'false'
-  `;
+  const values = [];
+let queryString = `
+SELECT listings.*
+FROM listings
+WHERE deleted = 'false'
+`;
 
-  if (searchFilters) {
-    if (searchFilters.title && searchFilters.title !== '') {
-      values.push(`${searchFilters.title}`);
-      queryString += `AND title = $${values.length}`;
-    }
-
-    if (searchFilters.askingPrice && searchFilters.askingPrice !== '') {
-      values.push(searchFilters.askingPrice);
-      queryString += `AND asking_price = $${values.length}`;
-    }
+if (searchFilters) {
+  if (searchFilters.title && searchFilters.title !== '') {
+    values.push(`%${searchFilters.title || ''}%`);
+    queryString += `AND title ILIKE $${values.length}`;
   }
+
+  if (searchFilters.askingPrice && searchFilters.askingPrice !== '') {
+    values.push(searchFilters.askingPrice);
+    queryString += `AND asking_price > $${values.length}`;
+  }
+  if (searchFilters.maxPrice && searchFilters.maxPrice !== '') {
+    values.push(searchFilters.maxPrice);
+    queryString += `AND asking_price < $${values.length}`;
+  }
+}
 
   if(limit){
     queryString += `LIMIT ${limit}`;
