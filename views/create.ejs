@@ -9,11 +9,12 @@
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
@@ -21,13 +22,13 @@
 
 <body>
   <%- include('partials/_header') %>
-  <main class="listing_container">
+  <!-- <main class="listing_container">
     <form action="/listings/create" method="post" class="new-listing-form">
       <div class="new-listing-wrapper">
         <label for="title">Title</label>
         <input type="text" name="title" placeholder="Title">
       </div>
-      
+
       <div class="new-listing-wrapper">
         <label for="description">Description</label>
         <textarea placeholder="Description" name="description" cols="30" rows="10"></textarea>
@@ -55,7 +56,62 @@
 
       <button type="submit" >Submit</button>
 
+  </main> -->
+
+  <main class="listing_container">
+    <form action="/listings/create" method="post" class="new-listing-form">
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+            <label for="title">Title</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <input type="text" name="condition" class="form-control" id="condition" placeholder="Condition">
+            <label for="condition">Condition</label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <textarea placeholder="Description" name="description" class="form-control" id="description" cols="30" rows="10"></textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <input type="number" name="asking-price" class="form-control" id="asking-price" placeholder="Asking price">
+            <label for="asking-price">Asking price</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <input type="text" name="thumbnail-url" class="form-control" id="thumbnail-url" placeholder="Thumbnail URL">
+            <label for="thumbnail-url">Thumbnail URL</label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-floating mb-3 new-listing-wrapper">
+            <input type="text" name="photos" class="form-control" id="photos" placeholder="Photo URLs, comma-separated">
+            <label for="photos">Photo URLs</label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
   </main>
+
+
+
 </body>
 
-</html> 
+</html>
