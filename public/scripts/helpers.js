@@ -129,22 +129,36 @@ const buttonListeners = function(selector, listingObject) {
   })
 }
 
+
+
+
+
+
 //This function creates an HTML element with the an item from listings.
 const createListingElement = function(listingObject) {
   let postedListing = $(`
-  <div class="listing-container">
-    <header>
-      <div class="title">${escape(listingObject.title)}</div>
-      <div class="price">${escape(listingObject['asking_price'])}</div>
-    </header>
-    <img src="${escape(listingObject.thumbnail_url)}" alt="">
-    <footer>
-    <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-    <div class="sold" id="sold${listingObject.id}"></div>
-      <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
-      <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}">✉</a>
-    </footer>
+
+  <div class="card listing-container col-4">
+    <img src="${escape(listingObject.thumbnail_url)}" class="card-img-top" alt="Bananas">
+    <div class="card-body">
+      <h5 class="card-title title">${escape(listingObject.title)}</h5>
+      <div class="d-flex justify-content-between">
+        <h6 class="card-subtitle mb-2 text-muted asking-price price">${escape(listingObject['asking_price'])}</h6>
+        <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
+      </div>
+      <p class="card-text description">description</p>
+      <div class="d-flex justify-content-between">
+        <p class="card-text condition"><small class="text-muted">Condition:</small> Excellent</p>
+        <div class="icon-container">
+        <div class="sold" id="sold${listingObject.id}"></div>
+          <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
+          <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}">✉</a>
+        </div>
+      </div>
+    </div>
   </div>
+
+
     `
   );
   buttonListeners(postedListing, listingObject)
@@ -182,24 +196,52 @@ const renderListings = function(listingsObjectArr, idSelector) {
 //This function creates an HTML element with the an item from listings with management privilege.
 const createManageListingElement = function(listingObject) {
   let postedListing = $(`
-  <div class="listing-container">
-    <header>
-      <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
-      <div class="price">${escape(listingObject['asking_price'])}</div>
-    </header>
-    <img src="${escape(listingObject.thumbnail_url)}" alt="">
-    <footer>
-      <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-      <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
-      <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
-      <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
-    </footer>
+
+  <div class="card listing-container col-4">
+  <img src="${escape(listingObject.thumbnail_url)}" class="card-img-top" alt="">
+  <div class="card-body">
+    <h5 class="card-title title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></h5>
+    <div class="d-flex justify-content-between">
+      <h6 class="card-subtitle mb-2 text-muted asking-price price">${escape(listingObject['asking_price'])}</h6>
+      <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
+    </div>
+    <p class="card-text description"></p>
   </div>
+  <div class="card-footer d-flex justify-content-between">
+    <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
+    <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
+    <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
+    <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+  </div>
+</div>
+
+
+
     `
   );
   buttonListeners(postedListing, listingObject)
   return postedListing;
 };
+
+
+
+
+
+  // <div class="listing-container">
+  //   <header>
+  //     <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
+  //     <div class="price">${escape(listingObject['asking_price'])}</div>
+  //   </header>
+  //   <img src="${escape(listingObject.thumbnail_url)}" alt="">
+  //   <footer>
+  //     <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+  //     <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
+  //     <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
+  //     <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
+  //   </footer>
+  // </div>
+
+
 
 //this function takes in an array of objects(coming from the getListingsBySearch function and appends listings into home and search pages)
 const renderManageListings = function(listingsObjectArr, idSelector) {
@@ -236,7 +278,7 @@ const renderMessages = function(messages) {
 // renders HTML for received mail items
 const renderReceivedMail = function(mailInfo) {
   return `
-  <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}"> 
+  <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}">
   <div>
     <span class="listing-name">${escape(mailInfo.title)}</span><br>
     Buyer id: <span class="user-id">${escape(mailInfo.client_id)}</span>
@@ -275,7 +317,7 @@ const renderInboxItems = function(mailItems, mailDir) {
 };
 
 const writeUserDetails = function(userInfo) {
-  const userDetailsString = ` 
+  const userDetailsString = `
   <h1 class="conversation-with">Conversation with <span class="user-name">${escape(userInfo.name)}</span></h1>
   <p>Phone number: <span class="phone-number">${escape(userInfo.phone)}</span><br>
     e-mail: <span class="email">${escape(userInfo.email)}</span><br>
