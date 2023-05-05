@@ -2,7 +2,8 @@ const db = require('../connection');
 
 // NEW CODE
 // function to insert message into messages table
-const addMessage = (listing_id, email, message) => {
+//     .addMessage(listing_id, email, other_user_id, message)
+const addBuyerMessage = (listing_id, email, message) => {
   const queryString1 = `SELECT name FROM users WHERE email = $1`;
   const queryString2 = `
     INSERT INTO messages (message, listing_id, seller_id, client_id)
@@ -20,7 +21,6 @@ const addMessage = (listing_id, email, message) => {
   return db.query(queryString1, [email])
     .then((res) => {
       const name = res.rows[0].name;
-      console.log('name', name);
       return db.query(queryString2, [listing_id, email, `${name} says: ${message}`])
     })
     .then(data => {
@@ -28,6 +28,30 @@ const addMessage = (listing_id, email, message) => {
     })
     .catch(error => console.error("error from general.js", error));
 };
+
+// this function is a clone of addBuyerMessage but repurposed for sellers
+const addSellerMessage = (listing_id, sellerEmail, message, buyerId) => {
+  console.log('from addsellermsg: ', listing_id, sellerEmail, message, buyerId)
+
+  const queryString1 = `SELECT name FROM users WHERE email = $1`
+  const queryString2 = `
+    INSERT INTO messages (message, listing_id, seller_id, client_id)
+    VALUES (
+      $1,
+      $2,
+      (SELECT owner_id FROM listings WHERE id = $2),
+      $3
+    ) returning *;`;
+
+  return db.query(queryString1, [sellerEmail])
+    .then((res) => {
+      const name = res.rows[0].name;
+      console.log('name', `${name} says: ${message}`)
+      return db.query(queryString2, [`${name} says: ${message}`, listing_id, buyerId])
+    })
+    .then(data => data.rows)
+    .catch(error => console.error("error from general.js", error));
+}
 
 const getUserByEmail = function(email) {
   //return null if no e-mail is passed in
@@ -48,6 +72,32 @@ const getUserByEmail = function(email) {
       return res.rows[0];
     });
 };
+
+const getSentQueries = (email) => {
+  const values = [email];
+  const queryString = `
+    SELECT listings.title, listings.id, messages.seller_id FROM messages
+    JOIN listings ON listings.id = listing_id
+    JOIN users ON users.id = client_id
+    WHERE email = $1
+    GROUP BY listings.title, listings.id, messages.seller_id;`;
+
+  return db.query(queryString, values)
+    .then(res => res.rows);
+};
+
+const getReceivedQueries = (email) => {
+  const values = [email];
+  const queryString = `
+    SELECT listings.title, listings.id, messages.client_id FROM messages
+    JOIN listings ON listings.id = listing_id
+    JOIN users ON users.id = seller_id
+    WHERE email = $1
+    GROUP BY listings.title, listings.id, messages.client_id;`
+
+  return db.query(queryString, values) 
+    .then(res => res.rows);
+}
 
 const getListingsById = (id) => {
   const values = [id]
@@ -169,22 +219,38 @@ const getFavoritesByUserId = (user_id) => {
     });
 };
 
-  /** Fetches conversation as an
+  /** Fetches conversation as an array of message objects for the buyer
    *
    * @param {*} listing_id
    * @param {*} email
    * @returns
    */
-  const getConversation = (listing_id, email) => {
+  const getConversation = (urlParams, email) => {
     // catch non-logged-in users
     if(!email) return null;
-    // set query params to values
-    const values = [listing_id, email];
+    let values;
+    let queryString;
 
-    const queryString = `SELECT message, created_at from messages
-    JOIN listings ON listings.id = messages.listing_id
-    WHERE listing_id = $1
-    AND client_id = (select id from users where email = $2);`;
+    // seller route, sellerId will be NULL
+    if (!urlParams.sellerId) {
+      // query with listingId and buyerId
+      values = [urlParams.listingId, urlParams.buyerId]
+
+      queryString = `SELECT message, created_at FROM messages
+      JOIN listings ON listings.id = messages.listing_id
+      WHERE listing_id = $1
+      AND client_id = $2`
+    }
+
+    // buyer route: buyerId will be NULL
+    if (!urlParams.buyerId) {
+      values = [urlParams.listingId, email];
+      
+      queryString = `SELECT message, created_at from messages
+      JOIN listings ON listings.id = messages.listing_id
+      WHERE listing_id = $1
+      AND client_id = (select id from users where email = $2);`;
+    }
 
     return db.query(queryString, values)
       .then(data => data.rows)
@@ -381,9 +447,19 @@ const deleteItem = function(listingId) {
     });
 };
 
+const getUserById = function(id) {
+  const queryString = `
+    SELECT name, email, phone FROM users
+    WHERE id = $1;`
+
+  return db.query(queryString, [id])
+    .then(res => res.rows);
+}
+
 module.exports = {
   // NEW CODE
-  addMessage,
+  addBuyerMessage,
+  addSellerMessage,
   addUser,
   addListing,
   addPhotos,
@@ -398,5 +474,8 @@ module.exports = {
   deleteItem,
   setItemToSold,
   setItemToNotSold,
-  getConversation
+  getConversation,
+  getReceivedQueries,
+  getSentQueries,
+  getUserById
 };

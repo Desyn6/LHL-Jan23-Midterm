@@ -33,23 +33,24 @@
   <main class="mailbox-container">
 
     <sidebar class="inbox-container">
-      <ul class="inbox">
-        <li>John Doe<br>Bananas</li>
-        <li>Betty Smith<br>Cherries</li>
-        <li>James Ping<br>Bananas</li>
-      </ul>
+      <h3>From Buyers</h1>
+      <div class="received-queries-container">
+          <!-- to be populated dynamically with renderReceivedMail -->
+     </div>
+      <h3>To Sellers</h1>
+      <div class="sent-queries-container">
+          <!-- to be populated dynamically with renderSentMail -->
+     </div>
     </sidebar>
 
     <div class="messages-interface">
-
-      <h1 class="conversation-with">Conversation with <span class="user-name">John Doe</span></h1>
-      <p>Phone number: <span class="phone-number">604-604-7788</span><br>
-         e-mail: <span class="email">Johnny@doe.com</span><br>
-         user ID: <span class="user-id">2</span>
-      </p>
+      <div class="conversation-with-container">
+        <!-- this container is to be populated with conversation partner upon load -->
+      </div>
       <!--Message Form-->
       <form action="/api/mailbox" method="post" class="response-box">
         <input type="hidden" name="listing_id" value="<%= listing_id %>">
+        <input type="hidden" name="other_user_id" value="none">
         <div class="response-form">
           <textarea
             name="message"
