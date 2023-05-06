@@ -152,10 +152,11 @@ const createListingElement = function(listingObject) {
         <div class="icon-container">
         <div class="sold" id="sold${listingObject.id}"></div>
           <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
-          <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}">✉</a>
+          <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}&sid=${escape(listingObject.owner_id)}">✉</a>
         </div>
       </div>
     </div>
+
   </div>
 
 
@@ -259,6 +260,7 @@ const renderManageListings = function(listingsObjectArr, idSelector) {
     }
 };
 
+// renders a single message element from a message object
 const renderMessage = function(messageObj) {
   return `
   <li class="d-flex justify-content-between mb-4">
@@ -286,6 +288,7 @@ const renderMessage = function(messageObj) {
 
 
 
+// empties messages container and pushes rendered messages elements
 const renderMessages = function(messages) {
   $('.messages-container').html('');
   for (message of messages) {
@@ -363,6 +366,7 @@ const renderInboxItems = function(mailItems, mailDir) {
   }
 };
 
+// automatically pushes user details fetched from getUserFromIdto mailbox page
 const writeUserDetails = function(userInfo) {
   const userDetailsString = `
   <h1 class="conversation-with">Conversation with <span class="user-name">${escape(userInfo.name)}</span></h1>
@@ -373,4 +377,4 @@ const writeUserDetails = function(userInfo) {
 
   $('.conversation-with-container').html('').prepend(userDetailsString)
 
-}
+};
