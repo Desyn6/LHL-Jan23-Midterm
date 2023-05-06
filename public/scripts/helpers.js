@@ -146,7 +146,7 @@ const createListingElement = function(listingObject) {
         <h6 class="card-subtitle mb-2 text-muted asking-price price">${escape(listingObject['asking_price'])}</h6>
         <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
       </div>
-      <p class="card-text description">description</p>
+      <p class="card-text description">${escape(listingObject.long_description)}</p>
       <div class="d-flex justify-content-between">
         <p class="card-text condition"><small class="text-muted">Condition:</small> Excellent</p>
         <div class="icon-container">
@@ -202,7 +202,7 @@ const createManageListingElement = function(listingObject) {
   <div class="card-body">
     <h5 class="card-title title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></h5>
     <div class="d-flex justify-content-between">
-      <h6 class="card-subtitle mb-2 text-muted asking-price price">${escape(listingObject['asking_price'])}</h6>
+      <h6 class="card-subtitle mb-2 text-muted asking-price price">$ ${escape(listingObject['asking_price'])}</h6>
       <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
     </div>
     <p class="card-text description"></p>
@@ -211,7 +211,7 @@ const createManageListingElement = function(listingObject) {
     <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
     <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
     <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
-    <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+
   </div>
 </div>
 
@@ -225,7 +225,7 @@ const createManageListingElement = function(listingObject) {
 
 
 
-
+// OLD LISTING MARKUP
 
   // <div class="listing-container">
   //   <header>
@@ -260,13 +260,31 @@ const renderManageListings = function(listingsObjectArr, idSelector) {
 };
 
 const renderMessage = function(messageObj) {
-  return `<article class="message-container">
+  return `
+  <li class="d-flex justify-content-between mb-4">
+      <div class="card">
+      <div class="card-header d-flex justify-content-between p-3">
+        <p class="text-muted small mb-0"><i class="far fa-clock"></i><div class="sent-at">${timeago.format(messageObj.created_at)}</div></p>
+      </div>
+      <div class="card-body">
+        <p class="mb-0">
+          ${messageObj.message}
+        </p>
+      </div>
+    </div>
+  </li>
+  `
+};
+
+// OLD CODE ****
+{/* <article class="message-container">
       <p>
         ${escape(messageObj.message)}
       </p>
     <div class="sent-at">${timeago.format(messageObj.created_at)}</div>
-  </article>`
-};
+  </article> */}
+
+
 
 const renderMessages = function(messages) {
   $('.messages-container').html('');
@@ -278,26 +296,55 @@ const renderMessages = function(messages) {
 // renders HTML for received mail items
 const renderReceivedMail = function(mailInfo) {
   return `
-  <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}">
+  <li class="p-2 border-bottom" style="background-color: #eee;">
+    <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}" class="d-flex justify-content-between">
+      <div class="pt-1">
+        <span class="listing-name fw-bold mb-0">${escape(mailInfo.title)}</span><br>
+        Seller id: <span class="small text-muted user-id">${escape(mailInfo.client_id)}</span>
+      </div>
+    </a>
+  </li>
+  `
+};
+
+// OLD CODE ******
+{/* <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}">
   <div>
     <span class="listing-name">${escape(mailInfo.title)}</span><br>
     Buyer id: <span class="user-id">${escape(mailInfo.client_id)}</span>
     <br>---------------
   </div>
-  </a>`
-};
+  </a> */}
+
+
+
 
 // renders HTML for sent mail items
 const renderSentMail = function(mailInfo) {
   return `
-  <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
-    <div>
-      <span class="listing-name">${escape(mailInfo.title)}</span><br>
-      Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
-      <br>---------------
-    </div>
-  </a>`
+  <li class="p-2 border-bottom" style="background-color: #eee;">
+    <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.seller_id)}" class="d-flex justify-content-between">
+      <div class="pt-1">
+        <span class="listing-name fw-bold mb-0">${escape(mailInfo.title)}</span><br>
+        Seller id: <span class="small text-muted user-id">${escape(mailInfo.seller_id)}</span>
+      </div>
+    </a>
+  </li>
+  `
 };
+
+
+// OLD CODE ******
+
+// <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
+//     <div>
+//       <span class="listing-name">${escape(mailInfo.title)}</span><br>
+//       Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
+//       <br>---------------
+//     </div>
+//   </a>
+
+
 
 // dynamically pushes rendered HTML elements to respective containers
 const renderInboxItems = function(mailItems, mailDir) {
