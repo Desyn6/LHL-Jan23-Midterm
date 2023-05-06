@@ -1,76 +1,32 @@
 <header>
   <% if (!user) { %>
-  <!-- <nav class="container">
-    <div class="nav-left">
-      <a class="home" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
-    </div>
-    <div class="nav-right">
-      <a class="search_button" href="/listings/search"><i class="fa-solid fa-magnifying-glass"></i></a>
-      <a class="home" href="/">Home</a>
-      <a class="login" href="/login">Login</a>
-      <a class="register" href="/register">Register</a>
-    </div>
-  </nav> -->
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <nav class="navbar navbar-expand-sm flex-wrap navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
+    <div class="navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-  <!--       <a class="nav-item nav-link active home" href="/">Home <span class="sr-only">(current)</span></a> -->
-        <a class="nav-item nav-link login" href="/login">Login</a>
-
-        <a class="nav-item nav-link register" href="/register">Register</a>
-        <a class="nav-item nav-link" href="/listings/search">Search</a>
-  <!--         <a class="create_listing" href="/listings/create">Create Listing</a> -->
-  <!--       <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
+          <a class="nav-item nav-link login" href="/login">Login</a>
+          <a class="nav-item nav-link register" href="/register">Register</a>
+          <a class="nav-item nav-link" href="/listings/search">Search</a>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
 
 
   <% } else { %>
-    <!-- <nav class="container">
-      <div class="nav-left">
-        <a class="home" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
-        <a class="search_button" href="/listings/search"><i class="fa-solid fa-magnifying-glass"></i></a>
+    <nav class="navbar navbar-expand-sm flex-wrap navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
+      <div class=" navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link login" href="/login/logout">Logout</a>
+          <a class="nav-item nav-link" href="/listings/favorites">Favorites</a>
+          <a class="nav-item nav-link" href="/listings">My Listings</a>
+          <a class="nav-item nav-link" href="/mailbox">Mailbox</a>
+          <a class="nav-item nav-link" href="/listings/create">Create Listing</a>
+          <a class="nav-item nav-link" href="/listings/search">Search</a>
+        </div>
       </div>
-      <div class="nav-right">
-        <span>Hello, <%= user %></span>
-        <a class="login" href="/login/logout">Logout</a>
-        <a class="home" href="/">Home</a>
-        <a class="favorites" href="/listings/favorites">Favorites</a>
-        <a class="my_listings" href="/listings">My Listings</a>
-        <a class="mailbox" href="/mailbox">Mailbox</a>
-        <a class="create_listing" href="/listings/create">Create Listing</a>
-      </div>
-  </nav> -->
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><i class="fa-brands fa-buysellads fa-2xl"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-  <!--       <a class="nav-item nav-link active home" href="/">Home <span class="sr-only">(current)</span></a> -->
-        <a class="nav-item nav-link login" href="/login/logout">Logout</a>
-        <a class="nav-item nav-link" href="/listings/favorites">Favorites</a>
-        <a class="nav-item nav-link" href="/listings">My Listings</a>
-  <!--         <a class="my_listings" href="/listings">My Listings</a> -->
-        <a class="nav-item nav-link" href="/mailbox">Mailbox</a>
-  <!--         <a class="mailbox" href="/mailbox">Mailbox</a> -->
-  <!--       <a class="favorites" href="/listings/favorites">Favorites</a> -->
-        <a class="nav-item nav-link" href="/listings/create">Create Listing</a>
-        <a class="nav-item nav-link" href="/listings/search">Search</a>
-  <!--         <a class="create_listing" href="/listings/create">Create Listing</a> -->
-  <!--       <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
-      </div>
-    </div>
-  </nav>
+    </nav>
 
   <% } %>
 </header>
