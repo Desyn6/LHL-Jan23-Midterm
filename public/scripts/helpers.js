@@ -127,12 +127,7 @@ const buttonListeners = function(selector, listingObject) {
     })
     location.reload();
   })
-}
-
-
-
-
-
+};
 
 //This function creates an HTML element with the an item from listings.
 const createListingElement = function(listingObject) {
@@ -224,26 +219,6 @@ const createManageListingElement = function(listingObject) {
   return postedListing;
 };
 
-
-
-// OLD LISTING MARKUP
-
-  // <div class="listing-container">
-  //   <header>
-  //     <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
-  //     <div class="price">${escape(listingObject['asking_price'])}</div>
-  //   </header>
-  //   <img src="${escape(listingObject.thumbnail_url)}" alt="">
-  //   <footer>
-  //     <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-  //     <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
-  //     <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
-  //     <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
-  //   </footer>
-  // </div>
-
-
-
 //this function takes in an array of objects(coming from the getListingsBySearch function and appends listings into home and search pages)
 const renderManageListings = function(listingsObjectArr, idSelector) {
   if(listingsObjectArr == 'item not found' || listingsObjectArr.length === 0){
@@ -278,16 +253,6 @@ const renderMessage = function(messageObj) {
   `
 };
 
-// OLD CODE ****
-{/* <article class="message-container">
-      <p>
-        ${escape(messageObj.message)}
-      </p>
-    <div class="sent-at">${timeago.format(messageObj.created_at)}</div>
-  </article> */}
-
-
-
 // empties messages container and pushes rendered messages elements
 const renderMessages = function(messages) {
   $('.messages-container').html('');
@@ -310,23 +275,11 @@ const renderReceivedMail = function(mailInfo) {
   `
 };
 
-// OLD CODE ******
-{/* <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}">
-  <div>
-    <span class="listing-name">${escape(mailInfo.title)}</span><br>
-    Buyer id: <span class="user-id">${escape(mailInfo.client_id)}</span>
-    <br>---------------
-  </div>
-  </a> */}
-
-
-
-
 // renders HTML for sent mail items
 const renderSentMail = function(mailInfo) {
   return `
   <li class="p-2 border-bottom" style="background-color: #eee;">
-    <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.seller_id)}" class="d-flex justify-content-between">
+    <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}" class="d-flex justify-content-between">
       <div class="pt-1">
         <span class="listing-name fw-bold mb-0">${escape(mailInfo.title)}</span><br>
         Seller id: <span class="small text-muted user-id">${escape(mailInfo.seller_id)}</span>
@@ -335,19 +288,6 @@ const renderSentMail = function(mailInfo) {
   </li>
   `
 };
-
-
-// OLD CODE ******
-
-// <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
-//     <div>
-//       <span class="listing-name">${escape(mailInfo.title)}</span><br>
-//       Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
-//       <br>---------------
-//     </div>
-//   </a>
-
-
 
 // dynamically pushes rendered HTML elements to respective containers
 const renderInboxItems = function(mailItems, mailDir) {

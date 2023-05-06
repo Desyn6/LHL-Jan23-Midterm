@@ -12,8 +12,7 @@ CREATE TABLE users (
   password VARCHAR(400) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   city VARCHAR(50) NOT NULL,
-  created_at TIMESTAMP
-);
+  created_at TIMESTAMP WITH TIME ZONE
 
 CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -26,7 +25,7 @@ CREATE TABLE listings (
   featured BOOLEAN DEFAULT FALSE,
   sold BOOLEAN DEFAULT FALSE,
   deleted BOOLEAN DEFAULT FALSE,
-  date_created TIMESTAMP DEFAULT Now()
+  date_created TIMESTAMP WITH TIME ZONE DEFAULT Now()
 );
 
 CREATE TABLE favorites (
@@ -47,5 +46,5 @@ CREATE TABLE messages (
   listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
   seller_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   client_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP DEFAULT Now()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT Now()
 );
