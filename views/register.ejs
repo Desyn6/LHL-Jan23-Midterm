@@ -28,74 +28,45 @@
 
   <main class="listing_container">
 
+
     <form action="/register" method="post" class="registration-form">
-      <div class="registration-wrapper">
-        <label for="Name">Name</label>
-        <input type="text" class="form-control" placeholder="Name" name="Name">
+      <div class="row">
+        <div class="form-group registration-wrapper">
+          <label for="Name">Name</label>
+          <input type="text" class="form-control" placeholder="Name" name="Name">
+        </div>
+        <div class="form-group registration-wrapper">
+          <label for="email">Email Address</label>
+          <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="user@example.com">
+        </div>
       </div>
-      <div class="registration-wrapper">
-        <label for="email">Email Address</label>
-        <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="user@example.com">
+      <div class="row">
+        <div class="form-group registration-wrapper">
+          <label for="phone-number">Phone Number</label>
+          <input class="form-control" placeholder="(XXX)-XXX-XXXX" type="tel" name="phone-number">
+        </div>
+        <div class="form-group registration-wrapper">
+          <label for="city">City</label>
+          <input type="text" class="form-control" placeholder="City" name="city">
+        </div>
       </div>
-      <div class="registration-wrapper">
-        <label for="phone-number">Phone Number</label>
-        <input class="form-control" placeholder="(XXX)-XXX-XXXX" type="tel" name="phone-number">
+      <div class="row">
+        <div class="form-group registration-wrapper">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" placeholder="Password" name="password">
+        </div>
+        <div class="form-group registration-wrapper">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" class="form-control" placeholder="Password" name="confirm-password">
+        </div>
       </div>
-      <div class="registration-wrapper">
-        <label for="city">City</label>
-        <input type="text" class="form-control" placeholder="City" name="city">
-      </div>
-      <div class="registration-wrapper">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" placeholder="Password" name="password">
-      </div>
-      <div class="registration-wrapper">
-        <label for="password">Confirm Password</label>
-        <input type="password" class="form-control" placeholder="Password" name="confirm-password">
-      </div>
-      <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="row">
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
       </div>
     </form>
 
-
-
-    <!-- <form action="/register" method="post" class="registration-form">
-      <div class="registration-wrapper">
-        <label for="Name">Name</label>
-        <input type="text" name="Name" placeholder="Name">
-      </div>
-
-      <div class="registration-wrapper">
-        <label for="email">email</label>
-        <input placeholder="user@example.com" name="email" type="email"></input>
-      </div>
-
-      <div class="registration-wrapper">
-        <label for="password">Password</label>
-        <input placeholder="password" type="password" name="password">
-      </div>
-
-      <div class="registration-wrapper">
-        <label for="confirm-password">Confirm Password</label>
-        <input placeholder="password" type="password" name="confirm-password">
-      </div>
-
-      <div class="registration-wrapper">
-        <label for="phone-number">Phone Number</label>
-        <input placeholder="(XXX)-XXX-XXXX" type="tel" name="phone-number">
-      </div>
-
-      <div class="registration-wrapper">
-        <label for="city">City</label>
-        <input placeholder="City" type="text" name="city">
-      </div>
-
-      <div> -->
-        <!-- this button will submit the form data to the server it will be stored inside req.body.email and req.body.password-->
-        <!-- <button type="submit" >Submit</button>
-      </div>
-    </form> -->
   </main>
 </body>
 
