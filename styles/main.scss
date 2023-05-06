@@ -1,12 +1,4 @@
-// body {
-//   display: flex;
-//   flex-direction: column;
-//   // justify-content: center;
-//   align-items: center;
-//   min-height: 100vh;
 
-//   background: #b2c8e7
-// }
 @import 'styles/abstracts/variables.scss';
 
 @import 'layout/navigation-bar.scss';
@@ -15,5 +7,8 @@
 @import 'layout/main.scss';
 
 @import 'pages/mailbox.scss';
+@import 'pages/create.scss';
+@import 'pages/search.scss';
+@import 'pages/register.scss';
 
 @import 'themes/theme.scss';

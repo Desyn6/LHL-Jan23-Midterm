@@ -129,22 +129,37 @@ const buttonListeners = function(selector, listingObject) {
   })
 }
 
+
+
+
+
+
 //This function creates an HTML element with the an item from listings.
 const createListingElement = function(listingObject) {
   let postedListing = $(`
-  <div class="listing-container">
-    <header>
-      <div class="title">${escape(listingObject.title)}</div>
-      <div class="price">${escape(listingObject['asking_price'])}</div>
-    </header>
-    <img src="${escape(listingObject.thumbnail_url)}" alt="">
-    <footer>
-    <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-    <div class="sold" id="sold${listingObject.id}"></div>
-      <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
-      <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}&sid=${escape(listingObject.owner_id)}">✉</a>
-    </footer>
+
+  <div class="card listing-container col-4">
+    <img src="${escape(listingObject.thumbnail_url)}" class="card-img-top" alt="Bananas">
+    <div class="card-body">
+      <h5 class="card-title title">${escape(listingObject.title)}</h5>
+      <div class="d-flex justify-content-between">
+        <h6 class="card-subtitle mb-2 text-muted asking-price price">$ ${escape(listingObject['asking_price'])}</h6>
+        <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
+      </div>
+      <p class="card-text description">${escape(listingObject.long_description)}</p>
+      <div class="d-flex justify-content-between">
+        <p class="card-text condition"><small class="text-muted">Condition:</small> ${escape(listingObject.condition)}</p>
+        <div class="icon-container">
+        <div class="sold" id="sold${listingObject.id}"></div>
+          <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
+          <a style="text-decoration:none" id="mailbox${listingObject.id}"class="contact" href="/mailbox?lid=${escape(listingObject.id)}&sid=${escape(listingObject.owner_id)}">✉</a>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+
     `
   );
   buttonListeners(postedListing, listingObject)
@@ -182,24 +197,52 @@ const renderListings = function(listingsObjectArr, idSelector) {
 //This function creates an HTML element with the an item from listings with management privilege.
 const createManageListingElement = function(listingObject) {
   let postedListing = $(`
-  <div class="listing-container">
-    <header>
-      <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
-      <div class="price">${escape(listingObject['asking_price'])}</div>
-    </header>
-    <img src="${escape(listingObject.thumbnail_url)}" alt="">
-    <footer>
-      <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
-      <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
-      <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
-      <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
-    </footer>
+
+  <div class="card listing-container col-4">
+  <img src="${escape(listingObject.thumbnail_url)}" class="card-img-top" alt="">
+  <div class="card-body">
+    <h5 class="card-title title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></h5>
+    <div class="d-flex justify-content-between">
+      <h6 class="card-subtitle mb-2 text-muted asking-price price">$ ${escape(listingObject['asking_price'])}</h6>
+      <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
+    </div>
+    <p class="card-text description"></p>
   </div>
+  <div class="card-footer d-flex justify-content-between">
+    <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
+    <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
+    <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
+
+  </div>
+</div>
+
+
+
     `
   );
   buttonListeners(postedListing, listingObject)
   return postedListing;
 };
+
+
+
+// OLD LISTING MARKUP
+
+  // <div class="listing-container">
+  //   <header>
+  //     <div class="title">${escape(listingObject.title)} (ID: <span class="listing-id">${escape(listingObject.id)})</span></div>
+  //     <div class="price">${escape(listingObject['asking_price'])}</div>
+  //   </header>
+  //   <img src="${escape(listingObject.thumbnail_url)}" alt="">
+  //   <footer>
+  //     <div class="posted_at">${timeago.format(listingObject['date_created'])}</div>
+  //     <a style="text-decoration:none" class="sold" id="sold${listingObject.id}" href="/api/listing/buttons/sold">🤝</a>
+  //     <a style="text-decoration:none" class="favorite" id="favorite${listingObject.id}" href="/api/listing/buttons/like/add">🤍</a>
+  //     <a style="text-decoration:none" class="delete" id="delete${listingObject.id}" href="/api/listing/buttons/delete">❌</a>
+  //   </footer>
+  // </div>
+
+
 
 //this function takes in an array of objects(coming from the getListingsBySearch function and appends listings into home and search pages)
 const renderManageListings = function(listingsObjectArr, idSelector) {
@@ -219,13 +262,31 @@ const renderManageListings = function(listingsObjectArr, idSelector) {
 
 // renders a single message element from a message object
 const renderMessage = function(messageObj) {
-  return `<article class="message-container">
+  return `
+  <li class="d-flex justify-content-between mb-4">
+      <div class="card">
+      <div class="card-header d-flex justify-content-between p-3">
+        <p class="text-muted small mb-0"><i class="far fa-clock"></i><div class="sent-at">${timeago.format(messageObj.created_at)}</div></p>
+      </div>
+      <div class="card-body">
+        <p class="mb-0">
+          ${messageObj.message}
+        </p>
+      </div>
+    </div>
+  </li>
+  `
+};
+
+// OLD CODE ****
+{/* <article class="message-container">
       <p>
         ${escape(messageObj.message)}
       </p>
     <div class="sent-at">${timeago.format(messageObj.created_at)}</div>
-  </article>`
-};
+  </article> */}
+
+
 
 // empties messages container and pushes rendered messages elements
 const renderMessages = function(messages) {
@@ -238,26 +299,55 @@ const renderMessages = function(messages) {
 // renders HTML for received mail items
 const renderReceivedMail = function(mailInfo) {
   return `
-  <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}"> 
+  <li class="p-2 border-bottom" style="background-color: #eee;">
+    <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}" class="d-flex justify-content-between">
+      <div class="pt-1">
+        <span class="listing-name fw-bold mb-0">${escape(mailInfo.title)}</span><br>
+        Seller id: <span class="small text-muted user-id">${escape(mailInfo.client_id)}</span>
+      </div>
+    </a>
+  </li>
+  `
+};
+
+// OLD CODE ******
+{/* <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.client_id)}">
   <div>
     <span class="listing-name">${escape(mailInfo.title)}</span><br>
     Buyer id: <span class="user-id">${escape(mailInfo.client_id)}</span>
     <br>---------------
   </div>
-  </a>`
-};
+  </a> */}
+
+
+
 
 // renders HTML for sent mail items
 const renderSentMail = function(mailInfo) {
   return `
-  <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
-    <div>
-      <span class="listing-name">${escape(mailInfo.title)}</span><br>
-      Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
-      <br>---------------
-    </div>
-  </a>`
+  <li class="p-2 border-bottom" style="background-color: #eee;">
+    <a href="/mailbox?lid=${escape(mailInfo.id)}&cid=${escape(mailInfo.seller_id)}" class="d-flex justify-content-between">
+      <div class="pt-1">
+        <span class="listing-name fw-bold mb-0">${escape(mailInfo.title)}</span><br>
+        Seller id: <span class="small text-muted user-id">${escape(mailInfo.seller_id)}</span>
+      </div>
+    </a>
+  </li>
+  `
 };
+
+
+// OLD CODE ******
+
+// <a href="/mailbox?lid=${escape(mailInfo.id)}&sid=${escape(mailInfo.seller_id)}">
+//     <div>
+//       <span class="listing-name">${escape(mailInfo.title)}</span><br>
+//       Seller id: <span class="user-id">${escape(mailInfo.seller_id)}</span>
+//       <br>---------------
+//     </div>
+//   </a>
+
+
 
 // dynamically pushes rendered HTML elements to respective containers
 const renderInboxItems = function(mailItems, mailDir) {
@@ -278,7 +368,7 @@ const renderInboxItems = function(mailItems, mailDir) {
 
 // automatically pushes user details fetched from getUserFromIdto mailbox page
 const writeUserDetails = function(userInfo) {
-  const userDetailsString = ` 
+  const userDetailsString = `
   <h1 class="conversation-with">Conversation with <span class="user-name">${escape(userInfo.name)}</span></h1>
   <p>Phone number: <span class="phone-number">${escape(userInfo.phone)}</span><br>
     e-mail: <span class="email">${escape(userInfo.email)}</span><br>
@@ -286,4 +376,5 @@ const writeUserDetails = function(userInfo) {
   `
 
   $('.conversation-with-container').html('').prepend(userDetailsString)
+
 };

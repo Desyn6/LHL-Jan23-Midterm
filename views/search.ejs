@@ -9,11 +9,13 @@
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
   <!-- Font-awesome icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -32,46 +34,10 @@
 
 <body>
   <%- include('partials/_header') %>
-  <!-- <main class="search-container">
-    <form action="/api/search" method="post" id="search_form" class="new-listing-form">
 
-      <div class="search-wrapper">
-        <label for="title">Title</label>
-        <input id='title' type="text" name="title">
-      </div>
-
-      <div class="search-wrapper">
-        <label for="asking-price">Minimum Price</label>
-        <input id="asking-price" type="text" name="asking-price">
-      </div>
-      <div class="search-wrapper">
-        <label for="max-price">Maximum Price</label>
-        <input id="max-price" type="text" name="max-price">
-      </div>
-
-      <button id="search_button" type="submit" >Search</button>
-    </form>
-  </main> -->
-  <!-- <main class="search-container">
-    <form action="/api/search" method="post" id="search_form" class="new-listing-form">
-      <div class="form-group search-wrapper">
-        <label for="title">Title</label>
-        <input id='title' type="text" name="title" class="form-control" aria-describedby="emailHelp">
-      </div>
-      <div class="form-group search-wrapper">
-        <label for="asking-price">Minimum Price</label>
-        <input id="asking-price" type="text" name="asking-price" class="form-control">
-      </div>
-      <div class="form-group search-wrapper">
-          <label for="max-price">Maximum Price</label>
-          <input id="max-price" type="text" name="max-price" class="form-control">
-        </div>
-      <button id="search_button" type="submit" class="btn btn-primary" >Search</button>
-    </form>
-  </main> -->
   <main class="search-container">
     <form action="/api/search" method="post" id="search_form" class="new-listing-form">
-      <div class="row">
+      <div class="row flex-wrap">
         <div class="form-group col-sm-4 col-md-3 search-wrapper">
           <label for="title">Title</label>
           <input id='title' type="text" name="title" class="form-control" aria-describedby="emailHelp">
@@ -91,7 +57,7 @@
 
 
   <section class="appending_listings_search_container">
-    <!-- This space(in the browser) will be populated with a box containing a posted tweet and other information related to the tweet. the code that will implement this is in the /scripts/client.js file-->
+
   </section>
 </body>
 
