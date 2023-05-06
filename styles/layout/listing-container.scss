@@ -55,9 +55,17 @@
   margin: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.9);
+  }
+
 
   .card-img-top {
     object-fit: cover;
+    padding-top: 1rem;
     border-radius: 0.5rem 0.5rem 0 0;
   }
 
@@ -66,6 +74,7 @@
 
     .description {
       margin-bottom: 1rem;
+
     }
 
     .condition, .asking-price, .date-posted {
