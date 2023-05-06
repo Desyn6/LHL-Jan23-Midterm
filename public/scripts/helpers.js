@@ -143,12 +143,12 @@ const createListingElement = function(listingObject) {
     <div class="card-body">
       <h5 class="card-title title">${escape(listingObject.title)}</h5>
       <div class="d-flex justify-content-between">
-        <h6 class="card-subtitle mb-2 text-muted asking-price price">${escape(listingObject['asking_price'])}</h6>
+        <h6 class="card-subtitle mb-2 text-muted asking-price price">$ ${escape(listingObject['asking_price'])}</h6>
         <small class="text-muted date-posted posted_at">${timeago.format(listingObject['date_created'])}</small>
       </div>
       <p class="card-text description">${escape(listingObject.long_description)}</p>
       <div class="d-flex justify-content-between">
-        <p class="card-text condition"><small class="text-muted">Condition:</small> Excellent</p>
+        <p class="card-text condition"><small class="text-muted">Condition:</small> ${escape(listingObject.condition)}</p>
         <div class="icon-container">
         <div class="sold" id="sold${listingObject.id}"></div>
           <a style="text-decoration:none" id="favorite${listingObject.id}" class="favorite" href="/api/listing/buttons/like/add">🤍</a>
