@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
   <script
   src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
@@ -33,44 +36,75 @@
   <%- include('partials/_header') %>
 
   <main class="mailbox-container">
+    <section>
+        <div class="row">
+    <!-- BELOW IS THE BEGINNING OF THE SIDEBAR CONTAINER -->
+          <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 inbox-container">
 
-    <sidebar class="inbox-container">
-      <h3>From Buyers</h1>
-      <div class="received-queries-container">
-          <!-- to be populated dynamically with renderReceivedMail -->
-     </div>
-      <h3>To Sellers</h1>
-      <div class="sent-queries-container">
-          <!-- to be populated dynamically with renderSentMail -->
-     </div>
-    </sidebar>
+            <h5 class="font-weight-bold mb-3 text-center text-lg-start">To Buyers</h5>
 
-    <div class="messages-interface">
-      <div class="conversation-with-container">
-        <!-- this container is to be populated with conversation partner upon load -->
-      </div>
-      <!--Message Form-->
-      <form action="/api/mailbox" method="post" class="response-box">
-        <input type="hidden" name="listing_id" value="<%= listing_id %>">
-        <input type="hidden" name="other_user_id" value="none">
-        <div class="response-form">
-          <textarea
-            name="message"
-            placeholder="Type your response here"
-            cols="100"
-            rows="3"></textarea>
+            <div class="card">
+    <!--           BELOW IS THE CONTAINER FOR RECEVIED QUERIES TO BE DISPLAYED -->
+              <div class="card-body">
+    <!--             OR HERE I THINK HERE AS CLASS-->
+                <ul class="list-unstyled mb-0 received-queries-container">
+
+
+    <!--               THIS WILL BE REPLACE WITH THE RENDER SIDEBAR LIs -->
+
+
+                </ul>
+
+              </div>
+            </div>
+
+            <h5 class="font-weight-bold mb-3 text-center text-lg-start">To Sellers</h5>
+
+            <div class="card">
+     <!--           BELOW IS THE CONTAINER FOR SENT QUERIES TO BE DISPLAYED -->
+              <div class="card-body">
+    <!--             THIS WILL BE THE CONTAINER FOR SETN QUERIES TO BE RENDERED -->
+
+                <ul class="list-unstyled mb-0 sent-queries-container">
+    <!--               this is where sent messages will go -->
+
+                </ul>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-6 col-lg-7 col-xl-8">
+
+            <div class="conversation-with-container">
+            <!-- this container is to be populated with conversation partner upon load -->
+
+            </div>
+
+
+              <form action="/api/mailbox" method="post" class="response-box form-outline">
+                <input type="hidden" name="listing_id" value="<%= listing_id %>">
+                <input type="hidden" name="other_user_id" value="none">
+                <div class="response-form">
+                  <textarea
+                    name="message"
+                    placeholder="Type your response here"
+                    cols="70"
+                    rows="3"></textarea>
+                </div>
+                <div>
+                  <button type="submit" name="submit">Submit</button>
+                </div>
+              </form>
+
+    <!--         THIS IS WHERE THE MESSAGES ARE APPENDED TO -->
+            <ul class="list-unstyled messages-container">
+    <!--           message will be prepended here -->
+            </ul>
+          </div>
         </div>
-        <div>
-          <button type="submit" name="submit">Submit</button>
-        </div>
-      </form>
-
-      <div class="messages-container">
-        <!-- this container will be populated dynamically where messages are found between a buyer and seller -->
-      </div>
-
-
-    </div>
-  </main>
+    </section>
+    </main>
 </body>
 </html>
