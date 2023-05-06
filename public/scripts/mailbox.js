@@ -23,6 +23,7 @@ $.get('/api/mailbox/sent')
 $.get('/api/mailbox/received')
   .then((data) => renderInboxItems(data, 'received'));  
 
+// scripts that should run upon page load - depends on fetched userData using ID
 $(document).ready(function() {
   if (urlParams.buyerId || urlParams.sellerId) {
     const idForQuery = { userId: urlParams.buyerId || urlParams.sellerId};
