@@ -1,0 +1,272 @@
+.container {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: #616c70;
+  height: 100px;
+  width: 100vw;
+}
+
+.nav-left {
+  text-align: center;
+  padding-left: 2rem;
+}
+.nav-left a:first-child {
+  padding-right: 1em;
+}
+
+.nav-right {
+  text-align: center;
+  padding-right: 2rem;
+}
+.nav-right a {
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+}
+.nav-right a:last-child {
+  background-color: orange;
+  color: black;
+}
+.nav-right a:hover {
+  border-top: 5px solid red;
+  background-color: black;
+  color: orange;
+}
+
+a {
+  text-decoration: none;
+  color: orange;
+  height: 100%;
+}
+
+.card {
+  max-width: 100%;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+  font-family: "Ubuntu", sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+.card:hover {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.9);
+}
+.card .card-img-top {
+  object-fit: cover;
+  padding-top: 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.card .card-body {
+  padding: 1rem;
+}
+.card .card-body .description {
+  margin-bottom: 1rem;
+}
+.card .card-body .condition, .card .card-body .asking-price, .card .card-body .date-posted {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.card .card-body .icon-container {
+  font-size: 1.5rem;
+  color: #adb5bd;
+}
+.card .card-body .icon-container i {
+  margin-right: 0.5rem;
+}
+.card .card-body button {
+  margin-top: 1rem;
+}
+
+main {
+  width: 90%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.mailbox-container section {
+  background-color: #eee;
+}
+.mailbox-container section .inbox-container h5 {
+  color: #000;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.mailbox-container section .inbox-container .card {
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1rem;
+}
+.mailbox-container section .inbox-container .card .card-body {
+  padding: 1.25rem;
+}
+.mailbox-container section .inbox-container .card .card-body ul li {
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+}
+.mailbox-container section .inbox-container .card .card-body ul li .listing-name {
+  color: #000;
+  font-weight: bold;
+}
+.mailbox-container section .inbox-container .card .card-body ul li .user-id {
+  color: #aaa;
+  font-size: 0.875rem;
+}
+.mailbox-container section .inbox-container .card .card-body ul li:hover {
+  background-color: #ddd;
+}
+.mailbox-container section .sent-queries-container li {
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+}
+.mailbox-container section .sent-queries-container li .listing-name {
+  color: #000;
+  font-weight: bold;
+}
+.mailbox-container section .sent-queries-container li .user-id {
+  color: #aaa;
+  font-size: 0.875rem;
+}
+.mailbox-container section .sent-queries-container li:hover {
+  background-color: #ddd;
+}
+
+.listing_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.new-listing-form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.new-listing-wrapper {
+  margin-bottom: 20px;
+}
+.new-listing-wrapper label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.new-listing-wrapper input,
+.new-listing-wrapper textarea {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+.new-listing-wrapper input:focus,
+.new-listing-wrapper textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #80bdff;
+}
+.new-listing-wrapper .input-group-text {
+  background-color: #fff;
+  border-color: #80bdff;
+  color: #6c757d;
+  font-weight: 600;
+}
+.new-listing-wrapper button[type=submit] {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.search-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#search_form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input[type=text] {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+input[type=text]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #80bdff;
+}
+
+#search_button {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.registration-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.registration-wrapper {
+  margin-bottom: 20px;
+}
+.registration-wrapper label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.registration-wrapper input[type=text],
+.registration-wrapper input[type=email],
+.registration-wrapper input[type=tel],
+.registration-wrapper input[type=password] {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+.registration-wrapper input[type=text]:focus,
+.registration-wrapper input[type=email]:focus,
+.registration-wrapper input[type=tel]:focus,
+.registration-wrapper input[type=password]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #80bdff;
+}
+.registration-wrapper .btn-primary {
+  font-size: 160px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+body {
+  background-color: #d9dae0;
+}
+
+header nav {
+  background-color: #bdced4;
+}

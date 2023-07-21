@@ -76,8 +76,6 @@ router.post("/create", (req, res) => {
     });
 });
 
-module.exports = router;
-
 //this rout renders the page featuring user's favorite items
 router.get('/favorites', (req, res) => {
   const templateVars = { user: req.session.userInfo };
